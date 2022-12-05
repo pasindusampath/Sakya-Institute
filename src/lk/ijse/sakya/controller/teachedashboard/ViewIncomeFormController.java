@@ -25,6 +25,7 @@ import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
 import java.io.File;
+import java.nio.file.FileSystems;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -96,16 +97,17 @@ public class ViewIncomeFormController implements DashBoard {
     }
 
     public void printBill(){
-        String billPath = "G:\\IJSE\\GDSE 63\\DBP\\FinalProject\\Sakya Institute\\src\\lk\\ijse\\sakya\\" +
-                "report\\IncomeReportTeacher.jrxml";
+
+        String billPath =FileSystems.getDefault().getPath("src/lk/ijse/sakya/report/IncomeReportTeacher.jrxml").
+                toAbsolutePath().toString();
         String sql = "SELECT sp.c_id , c.year as course_year,s.name as subject_name,s.grade,sum(sp.amount*0.8) as " +
                 "income,extract(YEAR FROM sp.date) as year1  from student_payment sp inner join course c on " +
                 "sp.c_id = c.id inner join subject s on c.sub_id = s.id inner join user u on c.teacherId = u.id " +
                 "where sp.month = "+LocalDate.now().getMonthValue()+" AND u.id = '"+loggedUser.getId()+"' group by " +
                 "sp.c_id,year1 having year1 = "+LocalDate.now().getYear();
-        String savePath = "G:\\IncomeReportsTeacher\\"+LocalDate.now().getYear()+LocalDate.now().getMonth().toString()+
+        String savePath = FileSystems.getDefault().getPath("IncomeReportsTeacher\\"+LocalDate.now().getYear()+LocalDate.now().getMonth().toString()+
                 LocalDate.now().getDayOfMonth()+ LocalTime.now().getHour()+LocalTime.now().getMinute()+LocalTime.now()
-                .getSecond()+".pdf";
+                .getSecond()+".pdf").toAbsolutePath().toString();
         HashMap<String, Object> para=new HashMap<>();
         para.put("total",lblTotal.getText());
         para.put("teacherName",loggedUser.getName());

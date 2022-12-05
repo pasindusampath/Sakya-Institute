@@ -47,7 +47,7 @@ public class   PrintBillTask extends Task<File> {
             updateProgress(100,100);
             return new File(savePath);
         } catch (Exception e) {
-            updateMessage("Error");
+            updateMessage(e.getMessage());
             //e.printStackTrace();
             //System.out.println("Error");
             //JOptionPane.showMessageDialog(rootPane, e);

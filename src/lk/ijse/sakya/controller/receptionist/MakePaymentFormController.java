@@ -33,6 +33,7 @@ import javax.imageio.ImageIO;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileSystems;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
@@ -242,9 +243,12 @@ public class MakePaymentFormController implements QrPerformance, DashBoard {
     }
 
     public void printBill(){
-        String billPath = "G:\\IJSE\\GDSE 63\\DBP\\FinalProject\\Sakya Institute\\src\\lk\\ijse\\sakya\\report\\Sakya.jrxml";
-        String sql="SELECT  c.year as year ,s.name as sub_name,s.grade,u.name as teacherName, sp.month , sp.amount as fee FROM student_payment sp  inner join course c on sp.c_id = c.id inner join subject s on c.sub_id = s.id inner join user u on c.teacherId = u.id WHERE invoice_nu= '"+invoiceNo.getText()+"'";
-        String path = "G:\\StudentPayments\\"+txtStudentId.getText()+invoiceNo.getText()+".pdf";
+        String billPath = FileSystems.getDefault().getPath("src/lk/ijse/sakya/report/Sakya.jrxml").toAbsolutePath().toString();
+        String sql="SELECT  c.year as year ,s.name as sub_name,s.grade,u.name as teacherName, sp.month , sp.amount as" +
+                " fee FROM student_payment sp  inner join course c on sp.c_id = c.id inner join subject s on c.sub_id" +
+                " = s.id inner join user u on c.teacherId = u.id WHERE invoice_nu= '"+invoiceNo.getText()+"'";
+        String path = FileSystems.getDefault().getPath("StudentPayments\\"+txtStudentId.getText()+invoiceNo.getText
+                ()+".pdf").toAbsolutePath().toString();
         HashMap<String, Object> para=new HashMap<>();
         para.put("cashierName",user.getName());
         para.put("studentId",txtStudentId.getText());
