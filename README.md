@@ -14,6 +14,7 @@ Only Admin can Add New Users And You Cannot Create Multiple account Using Same S
 The System Only Work With Gmails.
 
 Use Sakya;
+
 INSERT INTO USERS values(U-001,'Your-Name','ADMIN','Your-Gmail','Your-Contact-No','Password',Date('yyyy-mm-dd'),'Address');
 
 
