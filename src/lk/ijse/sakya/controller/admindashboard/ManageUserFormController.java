@@ -138,7 +138,8 @@ public class ManageUserFormController {
                 new Alert(Alert.AlertType.ERROR,"User Update Fail").show();
             }
         }else{
-            new Alert(Alert.AlertType.ERROR,"Fill All The Columns With Valid Details And Press ADD Button").show();
+            new Alert(Alert.AlertType.ERROR,"Fill All The Columns With Valid Details And Press ADD " +
+                    "Button").show();
         }
     }
 
@@ -147,8 +148,8 @@ public class ManageUserFormController {
             new Alert(Alert.AlertType.ERROR,"Select User From Table First And Try This Option");
             return;
         }
-        Alert a1 = new Alert(Alert.AlertType.CONFIRMATION,"Do You Want To Delete "+selectedUser.getName()+
-                " From The System", ButtonType.YES,ButtonType.NO);
+        Alert a1 = new Alert(Alert.AlertType.CONFIRMATION,"Do You Want To Delete "+selectedUser.
+                getName()+" From The System", ButtonType.YES,ButtonType.NO);
         Optional<ButtonType> buttonType = a1.showAndWait();
         String text = buttonType.get().getText();
         if(text.equalsIgnoreCase("no")){
@@ -233,7 +234,8 @@ public class ManageUserFormController {
                 new Alert(Alert.AlertType.ERROR,"Ui Not Found - Error").show();
             }
         }else{
-            new Alert(Alert.AlertType.ERROR,"Fill All The Columns With Valid Details And Press ADD Button").show();
+            new Alert(Alert.AlertType.ERROR,"Fill All The Columns With Valid Details And Press ADD" +
+                    " Button").show();
         }
     }
 
@@ -313,7 +315,8 @@ public class ManageUserFormController {
     }
 
     public void txtContactKeyAction(KeyEvent keyEvent) {
-        Pattern p1 = Pattern.compile("^(?:0|94|\\+94|0094)?(?:(11|21|23|24|25|26|27|31|32|33|34|35|36|37|38|41|45|47|51|52|54|55|57|63|65|66|67|81|91)(0|2|3|4|5|7|9)|7(0|1|2|4|5|6|7|8)\\d)\\d{6}$");
+        Pattern p1 = Pattern.compile("^(?:0|94|\\+94|0094)?(?:(11|21|23|24|25|26|27|31|32|33|34|35|36|37|38|" +
+                "41|45|47|51|52|54|55|57|63|65|66|67|81|91)(0|2|3|4|5|7|9)|7(0|1|2|4|5|6|7|8)\\d)\\d{6}$");
         Matcher m1 = p1.matcher(txtContact.getText());
         boolean b = m1.find();
         if(b){
@@ -352,9 +355,11 @@ public class ManageUserFormController {
                         "Username : "+user.getGmail()+"" +
                         "Password : "+user.getPassword()).show();
             } catch (SQLException e) {
-                new Alert(Alert.AlertType.ERROR,"System Error - User - Database \nContact Manufactures").show();
+                new Alert(Alert.AlertType.ERROR,"System Error - User - Database \n" +
+                        "Contact Manufactures").show();
             } catch (ClassNotFoundException e) {
-                new Alert(Alert.AlertType.ERROR,"System Error - User - Driver \nContact Manufactures").show();
+                new Alert(Alert.AlertType.ERROR,"System Error - User - Driver \n" +
+                        "Contact Manufactures").show();
 
             }
         });
@@ -367,7 +372,8 @@ public class ManageUserFormController {
         QRCodeWriter barcodeWriter = new QRCodeWriter();
         BitMatrix bitMatrix =
                 barcodeWriter.encode(barcodeText, BarcodeFormat.QR_CODE, 200, 200);
-        File outputfile = new File("G:\\IJSE\\GDSE 63\\DBP\\FinalProject\\Sakya Institute\\src\\userQr\\"+barcodeText+".jpg");
+        File outputfile = new File("G:\\IJSE\\GDSE 63\\DBP\\FinalProject\\Sakya Institute\\src\\" +
+                "userQr\\"+barcodeText+".jpg");
         ImageIO.write(MatrixToImageWriter.toBufferedImage(bitMatrix), "jpg", outputfile);
         //sendMail(outputfile);
         return outputfile;
