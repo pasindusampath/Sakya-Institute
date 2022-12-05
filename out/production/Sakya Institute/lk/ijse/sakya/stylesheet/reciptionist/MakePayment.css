@@ -1,0 +1,174 @@
+#btnAddToBill{
+    -fx-background-color: linear-gradient(from 70% 90% to 71% 90% , #ffffff, #f6eb93);
+}#btnEdit{
+     -fx-background-color: linear-gradient(from 82% 90% to 90% 90% , #ffffff, #7698f5);
+}#btnPay{
+      -fx-background-color: linear-gradient(from 82% 90% to 90% 90% , #ffffff, #fb98ff);
+}#btnClear{
+      -fx-background-color: linear-gradient(from 82% 90% to 90% 90% , #ffffff, #ff9898);
+}#btnAddToBill:hover{
+    -fx-background-color: linear-gradient(from 70% 90% to 71% 90% , #ffffff, #f6e11e);
+}#btnEdit:hover{
+     -fx-background-color: linear-gradient(from 82% 90% to 90% 90% , #ffffff, #285ff6);
+}#btnPay:hover{
+      -fx-background-color: linear-gradient(from 82% 90% to 90% 90% , #ffffff, #e931ef);
+}#btnClear:hover{
+      -fx-background-color: linear-gradient(from 82% 90% to 90% 90% , #ffffff, #e81515);
+}#btnAddToBill:pressed{
+    -fx-background-color: linear-gradient(from 70% 90% to 71% 90% , #ffffff, #b9a800);
+}#btnEdit:pressed{
+     -fx-background-color: linear-gradient(from 82% 90% to 90% 90% , #ffffff, #002da8);
+}#btnPay:pressed{
+      -fx-background-color: linear-gradient(from 82% 90% to 90% 90% , #ffffff, #9a009f);
+}#btnClear:pressed{
+      -fx-background-color: linear-gradient(from 82% 90% to 90% 90% , #ffffff, #850101);
+}
+.table-view{
+    -fx-background-color: rgba(0, 0, 0, 0.24);
+    -fx-border-radius: 2;
+    -fx-border-color: black;
+}
+.text-field{
+    -fx-prompt-text-fill: white;
+}
+.combo-box .list-cell
+{
+    -fx-background: rgba(255, 255, 255, 0);
+    -fx-background-color: transparent;
+    -fx-padding: 3 0 2 7;
+    -fx-cell-size: 2em;
+    -fx-text-fill: white;
+}
+
+.combo-box-popup .list-view
+{
+    -fx-background-color: rgba(229, 155, 155, 0), rgba(255, 255, 255, 0);
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 8, 0.0 , 0 , 0 );
+}
+
+.combo-box-popup .list-view .list-cell
+{
+    -fx-padding: 4 0 4 5;
+
+    /* No alternate highlighting */
+    -fx-background-color: rgba(64, 64, 64, 0.7);
+}
+
+.combo-box-popup .list-view .list-cell:filled:selected, .combo-box-popup .list-view .list-cell:filled:selected:hover
+{
+    -fx-background: rgba(255, 255, 255, 0);
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-selection-bar-text;
+}
+
+.combo-box-popup .list-view .list-cell:filled:hover
+{
+    -fx-background-color: rgba(255, 255, 255, 0.69);
+    -fx-text-fill: -fx-text-inner-color;
+}
+
+.combo-box-base
+{
+    //-fx-skin: "com.sun.javafx.scene.control.skin.ComboBoxBaseSkin";
+    -fx-background-color: rgba(213, 0, 0, 0), rgba(111, 238, 255, 0), rgba(182, 182, 182, 0), rgba(255, 234, 0, 0);
+    -fx-background-radius: 5, 5, 4, 3;
+    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+    -fx-padding: 0;
+
+}
+
+.combo-box-base:hover
+{
+    -fx-color: -fx-hover-base;
+}
+
+.combo-box-base:showing
+{
+    -fx-color: -fx-pressed-base;
+}
+
+.combo-box-base:focused {
+    //-fx-background-color: -fx-focus-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
+    -fx-background-radius: 6.4, 4, 5, 3;
+    -fx-background-insets: -1.4, 0, 1, 2;
+}
+
+.combo-box-base:disabled {
+    -fx-opacity: .4;
+}
+
+.table-view:focused{
+    -fx-background-color: rgba(0, 0, 0, 0.24);
+}
+
+/* Spaltenköpfe
+    Struktur column-header-background -> column-header */
+
+.table-view .column-header-background{
+    -fx-background-color: linear-gradient(#131313 0%, #424141 100%);
+
+}
+
+.table-view .column-header-background .label{
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+}
+
+.table-view .table-cell{
+    -fx-text-fill: white;
+}
+
+.table-row-cell{
+    -fx-background-color: -fx-table-cell-border-color, #616161;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em; /* 0 */
+}
+
+.table-row-cell:odd{
+    -fx-background-color: -fx-table-cell-border-color, #424242;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em; /* 0 */
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #005797;
+    -fx-background-insets: 0;
+    -fx-background-radius: 1;
+}
+
+.table-view > .virtual-flow > .scroll-bar:vertical,
+.table-view > .virtual-flow > .scroll-bar:vertical > .track,
+.table-view > .virtual-flow > .scroll-bar:vertical > .track-background,
+.table-view > .virtual-flow > .scroll-bar:horizontal,
+.table-view > .virtual-flow > .scroll-bar:horizontal > .track,
+.table-view > .virtual-flow > .scroll-bar:horizontal > .track-background {
+    -fx-background-color: transparent;
+}
+
+
+
+.table-view > .virtual-flow > .scroll-bar > .increment-button,
+.table-view > .virtual-flow > .scroll-bar > .decrement-button {
+    -fx-opacity: 0;
+}
+.calendar-grid {
+    -fx-background-color: rgb(20, 156, 255);
+}
+
+.combo-box-popup > .list-view > .placeholder > .label {
+    -fx-text-fill: white;
+}
+
+.calendar-header {
+    -fx-background-color: #1d1d1d;
+    -fx-base: #1d1d1d;
+    -fx-text-fill: white;
+}
+
+

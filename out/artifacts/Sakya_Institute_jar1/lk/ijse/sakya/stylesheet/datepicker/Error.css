@@ -1,0 +1,24 @@
+.date-picker-popup {
+    -fx-text-fill: white;
+    -fx-background-color:
+            linear-gradient(to bottom,white, black
+            ),
+            -fx-control-inner-background;
+    -fx-background-insets: 0, 1;
+    -fx-background-radius: 0;
+    -fx-alignment: CENTER; /* VBox */
+    -fx-spacing: 0; /* VBox */
+    -fx-padding: 0.083333em; /* 1 1 1 1 */
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.2) , 12, 0.0 , 0 , 8 );
+}
+
+.date-picker > .jfx-text-field
+{
+    -jfx-focus-color: #4059a9;
+    -jfx-unfocus-color: #ff0000;
+}
+
+.date-picker-popup > .month-year-pane {
+    -fx-background-color: #1d1d1d;
+    -fx-text-fill: white;
+}

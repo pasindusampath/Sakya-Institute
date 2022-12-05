@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="700.0" prefWidth="1366.0" stylesheets="@../stylesheet/ReciptionistDashBoardForm.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.sakya.controller.ReciptionistDashboardFormController">
+   <children>
+      <ImageView fitHeight="700.0" fitWidth="1366.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assert/▶%20Desktop%20-%2023.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="40.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assert/information.png" />
+         </image>
+      </ImageView>
+      <JFXButton fx:id="btnManageStudent" alignment="BASELINE_LEFT" layoutY="236.0" onAction="#btnManageStudentOnAction" prefHeight="68.0" prefWidth="218.0" text="Manage Student" wrapText="true">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="btnMarkAttendence" alignment="BASELINE_LEFT" layoutY="327.0" onAction="#btnMarkAttendenceOnAction" prefHeight="68.0" prefWidth="218.0" text="Mark Attendence" wrapText="true">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="btnMakePayment" alignment="BASELINE_LEFT" layoutY="415.0" onAction="#btnMakePaymentOnAction" prefHeight="68.0" prefWidth="218.0" text="Make Payment" wrapText="true">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="btnViewStudentDetails" alignment="BASELINE_LEFT" layoutY="500.0" onAction="#btnViewStudentDetailsOnAction" prefHeight="68.0" prefWidth="218.0" text="View Student       Details" wrapText="true">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </JFXButton>
+      <AnchorPane layoutX="218.0" prefHeight="39.0" prefWidth="1147.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d7ecff" height="77.0" layoutX="2.0" layoutY="1.0" opacity="0.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="1147.0" />
+            <ImageView fitHeight="76.0" fitWidth="711.0" layoutX="123.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assert/2NN6Ftsv.gif" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="dashBoardContext" layoutX="309.0" layoutY="165.0" prefHeight="490.0" prefWidth="969.0" />
+      <JFXButton fx:id="btnLogOut" alignment="BASELINE_LEFT" contentDisplay="RIGHT" graphicTextGap="77.0" layoutY="632.0" onAction="#btnLogOutOnAction" prefHeight="68.0" prefWidth="218.0" text="LOG OUT" wrapText="true">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="39.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assert/log-out.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <ProgressIndicator fx:id="progress" layoutX="740.0" layoutY="384.0" prefHeight="59.0" prefWidth="59.0" />
+   </children>
+</AnchorPane>
