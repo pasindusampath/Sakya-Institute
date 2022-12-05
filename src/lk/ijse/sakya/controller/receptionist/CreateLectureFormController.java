@@ -120,7 +120,8 @@ public class CreateLectureFormController {
     }
     public void search(String searchBy){
         try {
-            ObservableList<CourseTM> courseDetails = CourseController.getCourseDetails(searchBy, txtSearch.getText());
+            ObservableList<CourseTM> courseDetails = CourseController.getCourseDetails(searchBy,
+                    txtSearch.getText());
             tblCourseDetails.setItems(courseDetails);;
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR,"Getting Course Details ERROR -  Database Error").show();

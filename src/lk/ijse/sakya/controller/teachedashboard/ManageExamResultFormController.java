@@ -131,7 +131,8 @@ public class ManageExamResultFormController implements DashBoard {
             }
         });
         try {
-            cbExams.setItems(ExamController.getAllExamsByClassIdAndModuleId(selectedItem.getId(),selectedModule.getId()));
+            cbExams.setItems(ExamController.getAllExamsByClassIdAndModuleId(selectedItem.getId(),selectedModule
+                    .getId()));
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -200,7 +201,8 @@ public class ManageExamResultFormController implements DashBoard {
 
     public void btnCreateExamOnAction(ActionEvent actionEvent) {
         Stage stage = new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../../view/teacherdashboard/AddExamForm.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../../view/teacherdashboard/" +
+                "AddExamForm.fxml"));
         try {
             Parent load = loader.load();
             AddExamFormController controller = loader.getController();

@@ -59,7 +59,8 @@ public class MarkAttendenceController implements QrPerformance {
     public void btnCreateLectureOnAction(ActionEvent actionEvent) {
         Stage stage = new Stage();
         try {
-            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../../view/reciptionist/CreateLectureForm.fxml"))));
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../../view/reciptionist" +
+                    "/CreateLectureForm.fxml"))));
         } catch (IOException e) {
             e.printStackTrace();
         }

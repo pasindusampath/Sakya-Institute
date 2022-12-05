@@ -83,7 +83,8 @@ public class ViewIncomeFormController implements DashBoard {
                 if (hm.get(i) == null) {
                     series.getData().add(new XYChart.Data<>(Month.of(i).toString(), 0));
                 } else {
-                    series.getData().add(new XYChart.Data<>(Month.of(i).toString(), Double.parseDouble(String.valueOf(hm.get(i)))));
+                    series.getData().add(new XYChart.Data<>(Month.of(i).toString(), Double.parseDouble(String.valueOf
+                            (hm.get(i)))));
                 }
             }
             chart.getData().add(series);

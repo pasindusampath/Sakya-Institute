@@ -100,12 +100,16 @@ public class ViewIncomeFormController implements DashBoard {
         //btnPrint.setDisable(true);
         HashMap<String, Object> para=new HashMap<>();
         para.put("total","25000.00");
-        String billPath = "G:\\IJSE\\GDSE 63\\DBP\\FinalProject\\Sakya Institute\\src\\lk\\ijse\\sakya\\report\\IncomeReport.jrxml";
+        String billPath = "G:\\IJSE\\GDSE 63\\DBP\\FinalProject\\Sakya Institute\\src\\lk\\ijse\\sakya\\report\\" +
+                "IncomeReport.jrxml";
         String sql = "SELECT sp.c_id , c.year as course_year,s.name as subject_name,s.grade,u.name as teacher_name," +
                 "sum(sp.amount*0.2) as income,extract(YEAR FROM sp.date) as year1  from student_payment sp inner" +
                 " join course c on sp.c_id = c.id inner join subject s on c.sub_id = s.id inner join user u on " +
-                "c.teacherId = u.id where sp.month = '"+LocalDate.now().getMonthValue()+"'  group by sp.c_id,year1 having year1 ='"+LocalDate.now().getYear()+"'";
-        String savePath = "G:\\IncomeReports\\"+LocalDate.now().getYear()+LocalDate.now().getMonth().toString()+LocalDate.now().getDayOfMonth()+ LocalTime.now().getHour()+LocalTime.now().getMinute()+LocalTime.now().getSecond()+".pdf";
+                "c.teacherId = u.id where sp.month = '"+LocalDate.now().getMonthValue()+"'  group by sp.c_id,year1 " +
+                "having year1 ='"+LocalDate.now().getYear()+"'";
+        String savePath = "G:\\IncomeReports\\"+LocalDate.now().getYear()+LocalDate.now().getMonth().toString()+
+                LocalDate.now().getDayOfMonth()+ LocalTime.now().getHour()+LocalTime.now().getMinute()+
+                LocalTime.now().getSecond()+".pdf";
         PrintBillTask task = new PrintBillTask(billPath,sql,para,savePath);
         progress.progressProperty().bind(task.progressProperty());
         task.valueProperty().addListener((a,oldValue,newValue)->{

@@ -44,7 +44,8 @@ public class AddExamFormController {
             for(String id : students){
                 examStudents.add(new ExamStudent(id,lblExamId.getText(),-1));
             }
-            Exam exam = new Exam(lblExamId.getText(),course.getId(),module.getId(),String.valueOf(datePicker.getValue()),
+            Exam exam = new Exam(lblExamId.getText(),course.getId(),module.getId(),String.valueOf(datePicker
+                    .getValue()),
                     examStudents);
 
             boolean b = ExamController.addExam(exam);

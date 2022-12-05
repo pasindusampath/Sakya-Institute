@@ -36,7 +36,8 @@ public class ValidateGmailFormController {
         btnGetOtp.setDisable(true);
         Random r=new Random();
         x=r.nextInt(9999999);
-        SendMail os = new SendMail(lblGmail.getText(),"Verify Your Gmail Address","Use This Code For Creating Account in Sakya Smart Classroom <br></br><h1>"+x+"</h1>");
+        SendMail os = new SendMail(lblGmail.getText(),"Verify Your Gmail Address","Use This Code " +
+                "For Creating Account in Sakya Smart Classroom <br></br><h1>"+x+"</h1>");
         Thread ob = new Thread(os);
         ob.setDaemon(true);
         os.messageProperty().addListener((h, oldMessage, newMessage) -> {
@@ -77,7 +78,8 @@ public class ValidateGmailFormController {
         }
         if(rand==x){
             rec1.setVisible(true);
-            new Alert(Alert.AlertType.INFORMATION,"Congratulations Now You get Mail From the system use the username and password on your mail to access the System").show();
+            new Alert(Alert.AlertType.INFORMATION,"Congratulations Now You get Mail From the system " +
+                    "use the username and password on your mail to access the System").show();
 
             flag=true;
         }else{
