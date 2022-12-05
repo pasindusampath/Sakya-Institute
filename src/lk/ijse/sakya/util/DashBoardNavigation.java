@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lk.ijse.sakya.dto.User;
@@ -72,5 +73,17 @@ public class DashBoardNavigation extends Task<Node> {
 
     public static DashBoardNavigation getInstance(){
        return new DashBoardNavigation();
+    }
+
+    public static void  load(){
+        DashBoardNavigation instance = DashBoardNavigation.getInstance();
+        instance.valueProperty().addListener((a, b, c)->{
+            pane.getChildren().add(c);
+        });
+        instance.messageProperty().addListener((a,old,nw)->{
+            new Alert(Alert.AlertType.ERROR,nw).show();
+        });
+        Thread t1 = new Thread(instance);
+        t1.start();
     }
 }

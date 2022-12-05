@@ -50,20 +50,10 @@ public class ViewAttendenceFormController implements DashBoard {
         viewAttendenceContext.getChildren().clear();
         viewAttendenceContext.getChildren().add(load);*/
         DashBoardNavigation.setUi("teacherdashboard",viewAttendenceContext,"ViewAttendenceForm1",user);
-        load();
+        DashBoardNavigation.load();
     }
 
-    public void load(){
-        DashBoardNavigation instance = DashBoardNavigation.getInstance();
-        instance.valueProperty().addListener((a, b, c)->{
-            viewAttendenceContext.getChildren().add(c);
-        });
-        instance.messageProperty().addListener((a,old,nw)->{
-            new Alert(Alert.AlertType.ERROR,nw).show();
-        });
-        Thread t1 = new Thread(instance);
-        t1.start();
-    }
+
 
     public void setClassesComboBox(String userId){
         cbClasses.setConverter(new StringConverter() {
