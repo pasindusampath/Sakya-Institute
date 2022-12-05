@@ -1,0 +1,207 @@
+create table user
+(
+    id       varchar(5)                                not null
+        primary key,
+    name     varchar(45)                               null,
+    type     enum ('ADMIN', 'TEACHER', 'RECEPTIONIST') null,
+    gmail    varchar(255)                              null,
+    contact  varchar(12)                               null,
+    password text                                      null,
+    dob      date                                      null,
+    address  text                                      null,
+    constraint user_gmail_uindex
+        unique (gmail)
+);
+
+
+create table student
+(
+    id        varchar(15)  not null
+        primary key,
+    name      varchar(45)  null,
+    dob       date         null,
+    address   text         null,
+    contact   varchar(12)  null,
+    gmail     varchar(255) null,
+    p_mail    varchar(255) null,
+    p_contact varchar(12)  null
+);
+
+
+
+create table registration_fee
+(
+    st_id varchar(15)    not null
+        primary key,
+    fee   decimal(10, 2) null,
+    date  date           null,
+    constraint registration_fee_student_id_fk
+        foreign key (st_id) references student (id)
+            on update cascade on delete cascade
+);
+
+
+
+
+create table subject
+(
+    id    varchar(5)  not null
+        primary key,
+    name  varchar(35) null,
+    grade int         null
+);
+
+
+
+
+
+
+create table course
+(
+    id          varchar(15)    not null
+        primary key,
+    sub_id      varchar(15)    null,
+    year        int            null,
+    teacherId   varchar(5)     null,
+    monthly_fee decimal(10, 2) null,
+    constraint course_ibfk_1
+        foreign key (teacherId) references user (id)
+            on update cascade on delete cascade,
+    constraint course_ibfk_2
+        foreign key (sub_id) references subject (id)
+            on update cascade on delete cascade
+);
+
+
+create table student_course
+(
+    st_id varchar(15) not null,
+    c_id  varchar(15) not null,
+    date  date        null,
+    primary key (st_id, c_id),
+    constraint student_course_ibfk_1
+        foreign key (st_id) references student (id)
+            on update cascade on delete cascade,
+    constraint student_course_ibfk_2
+        foreign key (c_id) references course (id)
+            on update cascade on delete cascade
+);
+
+create index c_id
+    on student_course (c_id);
+
+
+create table student_payment
+(
+    st_id      varchar(15)    not null,
+    c_id       varchar(15)    not null,
+    month      int            not null,
+    date       date           null,
+    amount     decimal(10, 2) null,
+    invoice_nu varchar(15)    not null,
+    primary key (st_id, c_id, month, invoice_nu),
+    constraint student_payment_course_id_fk
+        foreign key (c_id) references course (id)
+            on update cascade on delete cascade,
+    constraint student_payment_student_id_fk
+        foreign key (st_id) references student (id)
+            on update cascade on delete cascade
+);
+
+
+
+create table lecture
+(
+    id   varchar(15) not null
+        primary key,
+    date date        null,
+    c_id varchar(15) null,
+    constraint lecture_ibfk_1
+        foreign key (c_id) references course (id)
+            on update cascade on delete cascade
+);
+
+create index c_id
+    on lecture (c_id);
+
+
+create table attendence
+(
+    lec_id varchar(15)                   not null,
+    st_id  varchar(15)                   not null,
+    status enum ('P', 'AB') default 'AB' null,
+    primary key (lec_id, st_id),
+    constraint attendence_ibfk_1
+        foreign key (lec_id) references lecture (id)
+            on update cascade on delete cascade,
+    constraint attendence_ibfk_2
+        foreign key (st_id) references student (id)
+            on update cascade on delete cascade
+);
+
+create index st_id
+    on attendence (st_id);
+
+
+
+
+
+
+create table module
+(
+    id     varchar(5)  not null
+        primary key,
+    name   varchar(25) null,
+    sub_id varchar(5)  null,
+    constraint module_ibfk_1
+        foreign key (sub_id) references subject (id)
+            on update cascade on delete cascade
+);
+
+create index sub_id
+    on module (sub_id);
+
+
+create table exam
+(
+    id       varchar(15) not null
+        primary key,
+    class_id varchar(15) null,
+    m_id     varchar(15) null,
+    date     date        null,
+    constraint exam_ibfk_1
+        foreign key (m_id) references module (id)
+            on update cascade on delete cascade,
+    constraint exam_ibfk_2
+        foreign key (class_id) references course (id)
+            on update cascade on delete cascade
+);
+
+create index class_id
+    on exam (class_id);
+
+create index m_id
+    on exam (m_id);
+
+
+
+
+create table exam_student
+(
+    st_id   varchar(15)    not null,
+    exam_id varchar(15)    not null,
+    mark    decimal(10, 2) null,
+    primary key (st_id, exam_id),
+    constraint exam_student_ibfk_1
+        foreign key (st_id) references student (id)
+            on update cascade on delete cascade,
+    constraint exam_student_ibfk_2
+        foreign key (exam_id) references exam (id)
+            on update cascade on delete cascade
+);
+
+create index exam_id
+    on exam_student (exam_id);
+
+
+
