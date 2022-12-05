@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -46,6 +47,19 @@ public class ViewAttendenceForm1Controller implements DashBoard {
         viewAttendenceContext.getChildren().clear();
         viewAttendenceContext.getChildren().add(load);*/
         DashBoardNavigation.setUi("teacherdashboard",viewAttendenceContext,"ViewAttendenceForm",user);
+        load();
+    }
+
+    public void load(){
+        DashBoardNavigation instance = DashBoardNavigation.getInstance();
+        instance.valueProperty().addListener((a, b, c)->{
+            viewAttendenceContext.getChildren().add(c);
+        });
+        instance.messageProperty().addListener((a,old,nw)->{
+            new Alert(Alert.AlertType.ERROR,nw).show();
+        });
+        Thread t1 = new Thread(instance);
+        t1.start();
     }
 
     public void setClassesComboBox(String userId){
