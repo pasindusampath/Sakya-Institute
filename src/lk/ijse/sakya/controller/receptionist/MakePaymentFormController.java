@@ -221,7 +221,9 @@ public class MakePaymentFormController implements QrPerformance, DashBoard {
                 new Alert(Alert.AlertType.INFORMATION, "Payment Complete").show();
                 printBill();
                 WritableImage image = billContext.snapshot(new SnapshotParameters(), null);
-                File file = new File("G:\\StudentPayments\\" + list.get(0).getStudentId() + list.get(0).getDate() + ".png");
+                String path = FileSystems.getDefault().getPath("StudentPayments\\" + list.get(0).getStudentId() +
+                        list.get(0).getDate() + ".png").toAbsolutePath().toString();
+                File file = new File(path);
                 ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
             } else {
                 new Alert(Alert.AlertType.ERROR, "Payment Failed").show();
