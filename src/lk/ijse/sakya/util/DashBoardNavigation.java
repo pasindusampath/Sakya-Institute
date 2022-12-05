@@ -86,4 +86,5 @@ public class DashBoardNavigation extends Task<Node> {
         Thread t1 = new Thread(instance);
         t1.start();
     }
+
 }

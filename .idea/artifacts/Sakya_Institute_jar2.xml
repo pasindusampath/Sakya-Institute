@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="Sakya Institute:jar2">
-    <output-path>$PROJECT_DIR$/out/artifacts/Sakya_Institute_jar2</output-path>
+    <output-path>$PROJECT_DIR$/../../../../../../Artifacts</output-path>
     <root id="archive" name="Sakya Institute_jar2.jar">
       <element id="module-output" name="Sakya Institute" />
       <element id="extracted-dir" path="$PROJECT_DIR$/src/lk/ijse/sakya/lib/techsoftemail.jar" path-in-jar="/" />

@@ -35,6 +35,15 @@ public class AdminDashBoardFormController implements DashBoard {
 
     public void btnLogOutOnAction(ActionEvent actionEvent)  {
         DashBoardNavigation.logOut(dashBoardContext);
+        DashBoardNavigation instance = DashBoardNavigation.getInstance();
+        instance.valueProperty().addListener((a,old,nw)->{
+            ((Stage)dashBoardContext.getScene().getWindow()).setScene(new Scene((Parent)nw));
+        });
+        instance.messageProperty().addListener((a,old,nw)->{
+            new Alert(Alert.AlertType.ERROR,nw).show();
+        });
+        Thread t1 = new Thread(instance);
+        t1.start();
     }
 
     @Override

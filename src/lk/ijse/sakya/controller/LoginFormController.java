@@ -14,14 +14,18 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import jdk.jfr.internal.tool.Main;
 import lk.ijse.sakya.controller.admindashboard.ValidateGmailFormController;
 import lk.ijse.sakya.dto.User;
 import lk.ijse.sakya.model.UserController;
 import lk.ijse.sakya.thread.LoginFormTask;
 import lk.ijse.sakya.thread.SendMail;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.FileSystems;
 import java.sql.SQLException;
 import java.util.Random;
 import java.util.regex.Matcher;
@@ -33,6 +37,7 @@ public class LoginFormController {
     public JFXPasswordField txtPassword;
     public JFXProgressBar progressBar;
     public JFXButton btnLogIn;
+    public String sourcePath ;
 
     public void initialize() {
         progressBar.setVisible(false);
@@ -108,14 +113,15 @@ public class LoginFormController {
 
     public void forgetPasswordOnAction(ActionEvent actionEvent) {
         try {
+            String path = "";
             User user = UserController.searchUserByGmail(txtUserName.getText());
             if (user == null) {
                 new Alert(Alert.AlertType.ERROR, "Enter Your Gmail Address That Used To Create Account in system").show();
                 return;
             }
-
             Stage stage = new Stage();
-            URL resource = getClass().getResource("../view/admindashboard/ValidateGmailForm.fxml");
+            sourcePath = isProgramRunnedFromJar() ?   "src/lk/ijse/sakya/view/admindashboard/ValidateGmailForm.fxml" : "../view/admindashboard/ValidateGmailForm.fxml" ;
+            URL resource = getClass().getResource(sourcePath);
             FXMLLoader f1 = new FXMLLoader(resource);
             Parent load = f1.load();
             ValidateGmailFormController controller = f1.getController();
@@ -148,6 +154,26 @@ public class LoginFormController {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+    public boolean isProgramRunnedFromJar() {
+        try {
+            File x = getCurrentJarFileLocation();
+            if (x.getAbsolutePath().contains("target" + File.separator + "classes")) {
+                return false;
+            } else {
+                return true;
+            }
+        }catch (NullPointerException e){
+            return false;
+        }
+    }
+    public File getCurrentJarFileLocation() {
+        try {
+            return new File(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath());
+        } catch(URISyntaxException e){
+            e.printStackTrace();
+            return null;
         }
     }
 }
