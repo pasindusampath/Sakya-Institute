@@ -15,9 +15,11 @@ The System Only Work With Gmails.
 
 Use Sakya;
 
-INSERT INTO USERS values(U-001,'Your-Name','ADMIN','Your-Gmail','Your-Contact-No','Password',Date('yyyy-mm-dd'),'Address');
+INSERT INTO USERS values('U-001','Your-Name','ADMIN','Your-Gmail','Your-Contact-No','Password',BirthDay('yyyy-mm-dd'),'Address');
 
 
 =============
+
 Happy Coding!
+
 =============
