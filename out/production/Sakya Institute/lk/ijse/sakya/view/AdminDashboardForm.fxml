@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+
+<AnchorPane fx:id="mainContext" prefHeight="700.0" prefWidth="1366" stylesheets="@../stylesheet/AdminDashBoard.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.sakya.controller.AdminDashBoardFormController">
+   <children>
+      <ImageView fitHeight="700.0" fitWidth="1366.0" opacity="0.41" pickOnBounds="true">
+         <image>
+            <Image url="@../assert/AdminFinal.gif" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="668.0" fitWidth="613.0" layoutX="221.0" layoutY="22.0" opacity="0.1" pickOnBounds="true">
+         <image>
+            <Image url="@../assert/admi.gif" />
+         </image>
+      </ImageView>
+      <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="#05e9ff" height="700.0" stroke="BLACK" strokeDashOffset="5.0" strokeLineCap="ROUND" strokeLineJoin="BEVEL" strokeMiterLimit="2.0" strokeType="INSIDE" strokeWidth="0.0" width="163.0" />
+      <ImageView fitHeight="150.0" fitWidth="163.0" layoutX="7.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assert/enterprise.png" />
+         </image>
+         <effect>
+            <Blend />
+         </effect>
+      </ImageView>
+      <JFXButton fx:id="btnManageUser" alignment="CENTER_RIGHT" contentDisplay="TOP" layoutY="291.0" onAction="#btnManageUserOnAction" prefHeight="49.0" prefWidth="163.0" text="Manage User" />
+      <JFXButton fx:id="btnManageClass" alignment="CENTER_RIGHT" layoutY="350.0" onAction="#btnManageClassOnAction" prefHeight="49.0" prefWidth="163.0" text="Manage Class" />
+      <JFXButton fx:id="btnViewIncome" alignment="CENTER_RIGHT" layoutY="408.0" onAction="#btnViewIncomeOnAction" prefHeight="49.0" prefWidth="163.0" text="View Income" />
+      <ImageView blendMode="MULTIPLY" fitHeight="49.0" fitWidth="54.0" layoutY="291.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assert/process.png" />
+         </image>
+      </ImageView>
+      <ImageView blendMode="MULTIPLY" fitHeight="49.0" fitWidth="54.0" layoutY="350.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assert/bar-graph.png" />
+         </image>
+      </ImageView>
+      <ImageView blendMode="MULTIPLY" fitHeight="49.0" fitWidth="54.0" layoutY="408.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assert/statistics.png" />
+         </image>
+      </ImageView>
+      <AnchorPane fx:id="dashBoardContext" layoutX="192.0" layoutY="118.0" prefHeight="478.0" prefWidth="1114.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" height="508.0" opacity="0.1" stroke="TRANSPARENT" strokeType="INSIDE" width="1114.0" />
+         </children>
+      </AnchorPane>
+      <JFXButton fx:id="btnLogout" alignment="BASELINE_LEFT" graphicTextGap="8.0" layoutX="1.0" layoutY="657.0" onAction="#btnLogOutOnAction" prefHeight="42.0" prefWidth="163.0" text="Log Out">
+         <graphic>
+            <ImageView fitHeight="33.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assert/log-out.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+   </children>
+</AnchorPane>

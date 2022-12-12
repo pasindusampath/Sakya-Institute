@@ -1,0 +1,6 @@
+<component name="ArtifactManager">
+  <artifact type="javafx-preloader" name="Testing">
+    <output-path>$PROJECT_DIR$/out/artifacts/Testing</output-path>
+    <root id="archive" name="Testing.jar" />
+  </artifact>
+</component>

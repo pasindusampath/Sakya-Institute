@@ -1,0 +1,140 @@
+.text-field{
+    -fx-prompt-text-fill: rgba(255, 253, 253, 0.8);
+    -fx-text-fill: white;
+}
+#txtSearch,#txtFakeSearch{
+    -fx-prompt-text-fill: rgba(0, 0, 0, 0.8);
+    -fx-text-fill: black;
+    -fx-background-color: white;
+}
+
+
+#btnUpdate{
+    -fx-background-color: linear-gradient(from 82% 90% to 90% 90% , #ffffff, #a4fd87);
+}#btnUpdate:hover{
+    -fx-background-color: linear-gradient(from 82% 90% to 90% 90% , #ffffff, #57f823);
+}#btnUpdate:pressed{
+    -fx-background-color: linear-gradient(from 82% 90% to 90% 90% , #ffffff, #299a00);
+}
+#btnDelete{
+    -fx-background-color: linear-gradient(from 82% 90% to 90% 90% , #ffffff, #f15959);
+}#btnDelete:hover{
+    -fx-background-color: linear-gradient(from 82% 90% to 90% 90% , #ffffff, #f51313);
+}#btnDelete:pressed{
+    -fx-background-color: linear-gradient(from 82% 90% to 90% 90% , #ffffff, #7c0101);
+}
+#btnClear{
+    -fx-background-color: linear-gradient(from 82% 90% to 90% 90% , #ffffff, #dd76f3);
+}#btnClear:hover{
+    -fx-background-color: linear-gradient(from 82% 90% to 90% 90% , #ffffff, #bc02f3);
+}#btnClear:pressed{
+    -fx-background-color: linear-gradient(from 82% 90% to 90% 90% , #ffffff, #64007a);
+}
+
+.table-view{
+    -fx-background-color: rgba(0, 0, 0, 0.24);
+    -fx-border-radius: 2;
+    -fx-border-color: black;
+}
+
+.table-view:focused{
+    -fx-background-color: rgba(0, 0, 0, 0.24);
+}
+
+/* Spaltenköpfe
+    Struktur column-header-background -> column-header */
+
+.table-view .column-header-background{
+    -fx-background-color: linear-gradient(#131313 0%, #424141 100%);
+
+}
+
+.table-view .column-header-background .label{
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+}
+
+.table-view .table-cell{
+    -fx-text-fill: white;
+}
+
+.table-row-cell{
+    -fx-background-color: -fx-table-cell-border-color, #616161;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em; /* 0 */
+}
+
+.table-row-cell:odd{
+    -fx-background-color: -fx-table-cell-border-color, #424242;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em; /* 0 */
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #005797;
+    -fx-background-insets: 0;
+    -fx-background-radius: 1;
+}
+
+.table-view > .virtual-flow > .scroll-bar:vertical,
+.table-view > .virtual-flow > .scroll-bar:vertical > .track,
+.table-view > .virtual-flow > .scroll-bar:vertical > .track-background,
+.table-view > .virtual-flow > .scroll-bar:horizontal,
+.table-view > .virtual-flow > .scroll-bar:horizontal > .track,
+.table-view > .virtual-flow > .scroll-bar:horizontal > .track-background {
+    -fx-background-color: transparent;
+}
+
+
+
+.table-view > .virtual-flow > .scroll-bar > .increment-button,
+.table-view > .virtual-flow > .scroll-bar > .decrement-button {
+    -fx-opacity: 0;
+}
+
+.date-picker-popup {
+    -fx-text-fill: white;
+    -fx-background-color:
+            linear-gradient(to bottom,white, black
+            ),
+            -fx-control-inner-background;
+    -fx-background-insets: 0, 1;
+    -fx-background-radius: 0;
+    -fx-alignment: CENTER; /* VBox */
+    -fx-spacing: 0; /* VBox */
+    -fx-padding: 0.083333em; /* 1 1 1 1 */
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.2) , 12, 0.0 , 0 , 8 );
+}
+
+.date-picker > .jfx-text-field
+{
+    -jfx-focus-color: #4059a9;
+    -jfx-unfocus-color: #ffffff;
+}
+
+.date-picker-popup > .month-year-pane {
+    -fx-background-color: #1d1d1d;
+    -fx-text-fill: white;
+}
+#btnAddCourse{
+//-fx-background-color: #50EF8F;
+    -fx-background-color: linear-gradient(from 82% 90% to 90% 90% , #fafafa, #78ebfc);
+}#btnAddCourse:hover{
+ //-fx-background-color: #50EF8F;
+     -fx-background-color: linear-gradient(from 82% 90% to 90% 90% , #fafafa, #11d7f3);
+ }#btnAddCourse:pressed{
+  //-fx-background-color: #50EF8F;
+      -fx-background-color: linear-gradient(from 82% 90% to 90% 90% , #fafafa, #027081);
+}
+#btnLoadCourses{
+    -fx-background-color: linear-gradient(from 82% 90% to 90% 90% , #ffffff, #a4fd87);
+}#btnLoadCourses:hover{
+     -fx-background-color: linear-gradient(from 82% 90% to 90% 90% , #ffffff, #57f823);
+ }#btnLoadCourses:pressed{
+      -fx-background-color: linear-gradient(from 82% 90% to 90% 90% , #ffffff, #299a00);
+  }
