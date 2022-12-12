@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXRadioButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="478.0" prefWidth="1114.0" stylesheets="@../../stylesheet/admin/ManageClassForm.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.sakya.controller.admindashboard.ManageClassFormController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="508.0" opacity="0.1" stroke="TRANSPARENT" strokeType="INSIDE" width="1114.0" />
+      <TableView fx:id="tblCourses" layoutX="46.0" layoutY="132.0" onMouseClicked="#tblCoursesMouseOnClickAction" prefHeight="296.0" prefWidth="607.0">
+        <columns>
+          <TableColumn fx:id="colCourseId" prefWidth="144.0" text="Course ID" />
+            <TableColumn fx:id="colYear" prefWidth="82.0" text="Year" />
+            <TableColumn fx:id="colGrade" prefWidth="85.0" text="Grade" />
+            <TableColumn fx:id="colSubject" prefWidth="90.0" text="Subject" />
+            <TableColumn fx:id="colTeacherId" prefWidth="203.0" text="Teacher Id" />
+        </columns>
+      </TableView>
+      <JFXButton fx:id="btnUpdate" layoutX="666.0" layoutY="457.0" onAction="#btnUpdateOnAction" prefHeight="25.0" prefWidth="116.0" text="Update" />
+      <JFXButton fx:id="btnDelete" layoutX="799.0" layoutY="457.0" onAction="#btnDeleteOnAction" prefHeight="25.0" prefWidth="116.0" text="Delete" />
+      <JFXButton fx:id="btnClear" layoutX="927.0" layoutY="457.0" onAction="#btnClearOnAction" prefHeight="25.0" prefWidth="116.0" text="Clear" />
+      <JFXTextField fx:id="txtSearch" alignment="CENTER" layoutX="63.0" layoutY="37.0" prefHeight="42.0" prefWidth="342.0" promptText="Search">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </JFXTextField>
+      <JFXButton fx:id="btnAdd" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="474.0" layoutY="35.0" onAction="#btnAddOnAction" prefHeight="47.0" prefWidth="55.0" text=".">
+         <graphic>
+            <ImageView fx:id="imgAddUser" fitHeight="38.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../assert/button.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="btnSearch" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="419.0" layoutY="35.0" onAction="#btnSearchOnAction" text="  ">
+         <graphic>
+            <ImageView fitHeight="39.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../assert/search%20(1).png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXComboBox fx:id="cbTeachers" layoutX="693.0" layoutY="317.0" prefHeight="25.0" prefWidth="327.0" promptText="Teacher" />
+      <JFXComboBox fx:id="cbSubject" layoutX="898.0" layoutY="242.0" prefHeight="25.0" prefWidth="123.0" promptText="Subject" />
+      <JFXComboBox fx:id="cbGrade" layoutX="791.0" layoutY="242.0" onAction="#cbGradeOnAction" prefHeight="25.0" prefWidth="87.0" promptText="Grade" />
+      <JFXTextField fx:id="txtCourseId" layoutX="693.0" layoutY="156.0" prefHeight="25.0" prefWidth="327.0" promptText="Course Id" />
+      <JFXComboBox fx:id="cbYear" layoutX="693.0" layoutY="242.0" prefHeight="25.0" prefWidth="87.0" promptText="Year" />
+      <JFXRadioButton fx:id="rdCourseId" layoutX="577.0" layoutY="59.0" text="Course Id">
+         <toggleGroup>
+            <ToggleGroup fx:id="group" />
+         </toggleGroup>
+      </JFXRadioButton>
+      <JFXRadioButton fx:id="rdYear" layoutX="679.0" layoutY="59.0" text="Year" toggleGroup="$group" />
+      <JFXRadioButton fx:id="rdSubject" layoutX="760.0" layoutY="59.0" text="Subject" toggleGroup="$group" />
+      <JFXRadioButton fx:id="rdGrade" layoutX="679.0" layoutY="90.0" text="Grade" toggleGroup="$group" />
+      <JFXRadioButton fx:id="rdTeacherId" layoutX="577.0" layoutY="90.0" text="Teacher Id" toggleGroup="$group" />
+   </children>
+</AnchorPane>

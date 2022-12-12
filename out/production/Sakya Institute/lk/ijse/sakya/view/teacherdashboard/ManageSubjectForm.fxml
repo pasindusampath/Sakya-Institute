@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="468.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.sakya.controller.teachedashboard.ManageSubjectFormController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="468.0" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="1000.0" />
+      <AnchorPane prefHeight="468.0" prefWidth="1000.0" stylesheets="@../../stylesheet/teacher/ManageSubjectForm.css">
+         <children>
+            <JFXButton contentDisplay="CENTER" graphicTextGap="0.0" layoutX="177.0" layoutY="12.0" prefHeight="32.0" prefWidth="32.0" text="  " />
+            <JFXComboBox fx:id="cbGrade" layoutX="18.0" layoutY="32.0" onAction="#cbGradeOnAction" prefHeight="25.0" prefWidth="245.0" promptText="Select Grade" />
+            <JFXButton contentDisplay="CENTER" graphicTextGap="0.0" layoutX="221.0" layoutY="160.0" prefHeight="32.0" prefWidth="32.0" text="  " />
+            <JFXButton contentDisplay="CENTER" graphicTextGap="0.0" layoutX="221.0" layoutY="216.0" prefHeight="32.0" prefWidth="32.0" text="  " />
+            <JFXButton contentDisplay="CENTER" graphicTextGap="0.0" layoutX="265.0" layoutY="214.0" prefHeight="36.0" prefWidth="51.0" text="  " />
+            <TableView fx:id="tblSubjects" layoutX="18.0" layoutY="92.0" onMouseClicked="#tblSubOnMouseClickAction" prefHeight="351.0" prefWidth="245.0">
+              <columns>
+                <TableColumn fx:id="colSubjectId" prefWidth="110.0" text="Subject Id" />
+                <TableColumn fx:id="colSubjectName" prefWidth="133.0" text="Subject Name" />
+              </columns>
+            </TableView>
+            <JFXTextField fx:id="txtNewSubjectName" layoutX="268.0" layoutY="177.0" prefHeight="25.0" prefWidth="217.0" promptText="Subject Name" />
+            <JFXButton fx:id="btnAddSubject" alignment="BASELINE_LEFT" layoutX="263.0" layoutY="208.0" onAction="#btnAddSubjectOnAction" prefHeight="35.0" prefWidth="114.0" text="Add Subject">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btnUpdateSubject" alignment="BASELINE_LEFT" layoutX="268.0" layoutY="350.0" onAction="#btnUpdateSubjectOnAction" prefHeight="36.0" prefWidth="114.0" text="Update Subject">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btnDeleteSubject" alignment="BASELINE_LEFT" layoutX="268.0" layoutY="402.0" onAction="#btnDeleteSubjectOnAction" prefHeight="36.0" prefWidth="114.0" text="Delete Subject">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+            </JFXButton>
+            <Label layoutX="271.0" layoutY="279.0" prefHeight="36.0" prefWidth="73.0" text="Subject ID : ">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="266.0" layoutY="141.0" prefHeight="36.0" prefWidth="73.0" text="Subject ID : ">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblnewSubjectId" layoutX="340.0" layoutY="142.0" prefHeight="32.0" prefWidth="147.0" />
+            <Label fx:id="lblSubjectId" layoutX="341.0" layoutY="281.0" prefHeight="32.0" prefWidth="147.0" />
+            <JFXTextField fx:id="txtSubjectName" layoutX="273.0" layoutY="316.0" prefHeight="25.0" prefWidth="217.0" promptText="Subject Name" />
+            <TableView fx:id="tblModule" layoutX="528.0" layoutY="92.0" onMouseClicked="#tblModuleMouseClickOnAction" prefHeight="351.0" prefWidth="200.0">
+               <columns>
+                  <TableColumn fx:id="colModuleID" prefWidth="95.0" text="Module ID" />
+                  <TableColumn fx:id="colModuleName" prefWidth="104.0" text="Module Name" />
+               </columns>
+            </TableView>
+            <JFXTextField fx:id="txtNewModuleName" layoutX="729.0" layoutY="167.0" prefHeight="25.0" prefWidth="217.0" promptText="Module Name" />
+            <JFXButton fx:id="btnAddModule" alignment="BASELINE_LEFT" layoutX="729.0" layoutY="199.0" onAction="#btnAddModuleOnAction" prefHeight="35.0" prefWidth="114.0" text="Add Module">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btnUpdateModule" alignment="BASELINE_LEFT" layoutX="729.0" layoutY="357.0" onAction="#btnUpdateModuleOnAction" prefHeight="36.0" prefWidth="114.0" text="Update Module">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btnDeleteModule" alignment="BASELINE_LEFT" layoutX="729.0" layoutY="406.0" onAction="#btnDeleteModuleOnAction" prefHeight="36.0" prefWidth="114.0" text="Delete Module">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+            </JFXButton>
+            <Label layoutX="728.0" layoutY="276.0" prefHeight="36.0" prefWidth="73.0" text="Module ID : ">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="729.0" layoutY="131.0" prefHeight="36.0" prefWidth="73.0" text="Module ID : ">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblNewModuleId" layoutX="801.0" layoutY="137.0" prefHeight="25.0" prefWidth="147.0" />
+            <JFXTextField fx:id="txtModuleName" layoutX="730.0" layoutY="320.0" prefHeight="25.0" prefWidth="217.0" promptText="Module Name" />
+            <Label fx:id="lblModuleId" layoutX="802.0" layoutY="277.0" prefHeight="36.0" prefWidth="147.0" />
+            <Separator layoutX="265.0" layoutY="247.0" prefHeight="3.0" prefWidth="234.0" />
+            <Separator layoutX="265.0" layoutY="278.0" prefHeight="3.0" prefWidth="234.0" />
+            <Separator layoutX="265.0" layoutY="92.0" prefHeight="3.0" prefWidth="234.0" />
+            <Separator layoutX="265.0" layoutY="123.0" prefHeight="3.0" prefWidth="234.0" />
+            <Label alignment="CENTER" layoutX="277.0" layoutY="95.0" prefHeight="25.0" prefWidth="210.0" text="Add New Subject">
+               <font>
+                  <Font name="Bell MT Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="280.0" layoutY="251.0" prefHeight="25.0" prefWidth="210.0" text="Modify  Subject">
+               <font>
+                  <Font name="Bell MT Bold" size="20.0" />
+               </font>
+            </Label>
+            <Separator layoutX="729.0" layoutY="240.0" prefHeight="3.0" prefWidth="272.0" />
+            <Separator layoutX="729.0" layoutY="271.0" prefHeight="3.0" prefWidth="272.0" />
+            <Label alignment="CENTER" layoutX="735.0" layoutY="244.0" prefHeight="25.0" prefWidth="265.0" text="Modify  Module">
+               <font>
+                  <Font name="Bell MT Bold" size="20.0" />
+               </font>
+            </Label>
+            <Separator layoutX="729.0" layoutY="92.0" prefHeight="3.0" prefWidth="272.0" />
+            <Separator layoutX="729.0" layoutY="123.0" prefHeight="3.0" prefWidth="272.0" />
+            <Label alignment="CENTER" layoutX="735.0" layoutY="96.0" prefHeight="25.0" prefWidth="265.0" text="Add Module">
+               <font>
+                  <Font name="Bell MT Bold" size="20.0" />
+               </font>
+            </Label>
+            <Separator layoutX="499.0" layoutY="90.0" orientation="VERTICAL" prefHeight="376.0" prefWidth="1.0" />
+            <Label fx:id="lblSelectedSubject" layoutX="584.0" layoutY="49.0" prefHeight="25.0" prefWidth="265.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

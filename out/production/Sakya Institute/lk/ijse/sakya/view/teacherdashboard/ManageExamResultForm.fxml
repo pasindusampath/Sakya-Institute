@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="468.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.sakya.controller.teachedashboard.ManageExamResultFormController">
+   <children>
+      <AnchorPane prefHeight="468.0" prefWidth="1000.0" stylesheets="@../../stylesheet/teacher/ManageExamResultForm.css">
+         <children>
+            <JFXTextField fx:id="txtSearch" layoutX="14.0" layoutY="14.0" prefHeight="32.0" prefWidth="207.0" />
+            <JFXButton contentDisplay="CENTER" graphicTextGap="0.0" layoutX="177.0" layoutY="12.0" prefHeight="32.0" prefWidth="32.0" text="  ">
+               <graphic>
+                  <ImageView fitHeight="28.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../assert/search%20(2).png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXComboBox fx:id="cbClasses" layoutX="20.0" layoutY="109.0" onAction="#cbClassesOnAction" prefHeight="25.0" prefWidth="195.0" promptText="Select Class" />
+            <JFXButton contentDisplay="CENTER" graphicTextGap="0.0" layoutX="221.0" layoutY="104.0" prefHeight="32.0" prefWidth="32.0" text="  ">
+               <graphic>
+                  <ImageView fitHeight="28.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../assert/check.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXComboBox fx:id="cbModules" layoutX="20.0" layoutY="165.0" onAction="#cbModulesOnAction" prefHeight="25.0" prefWidth="195.0" promptText="Select Module" />
+            <JFXButton contentDisplay="CENTER" graphicTextGap="0.0" layoutX="221.0" layoutY="160.0" prefHeight="32.0" prefWidth="32.0" text="  ">
+               <graphic>
+                  <ImageView fitHeight="28.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../assert/check.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXComboBox fx:id="cbExams" layoutX="20.0" layoutY="221.0" onAction="#cbExamsOnAction" prefHeight="25.0" prefWidth="195.0" promptText="Select Exam" />
+            <JFXButton contentDisplay="CENTER" graphicTextGap="0.0" layoutX="221.0" layoutY="216.0" prefHeight="32.0" prefWidth="32.0" text="  ">
+               <graphic>
+                  <ImageView fitHeight="28.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../assert/check.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton contentDisplay="CENTER" graphicTextGap="0.0" layoutX="265.0" layoutY="214.0" onAction="#btnCreateExamOnAction" prefHeight="36.0" prefWidth="51.0" text="  ">
+               <graphic>
+                  <ImageView fitHeight="33.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../assert/exam.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="btnLoadExamDetails" alignment="BASELINE_LEFT" layoutX="33.0" layoutY="298.0" prefHeight="41.0" prefWidth="182.0" text="Load Exam Details">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </JFXButton>
+            <TableView fx:id="tblStudentResults" layoutX="400.0" layoutY="78.0" prefHeight="276.0" prefWidth="477.0">
+               <columns>
+                  <TableColumn fx:id="colStudentId" prefWidth="104.0" text="Student Id" />
+                  <TableColumn fx:id="colStudentName" minWidth="0.0" prefWidth="238.0" text="Student Name" />
+                  <TableColumn fx:id="colMark" prefWidth="134.0" text="Mark" />
+               </columns>
+            </TableView>
+            <JFXButton fx:id="btnSaveExamDetails" alignment="BASELINE_LEFT" layoutX="559.0" layoutY="386.0" onAction="#btnSaveExamDetailsOnAction" prefHeight="41.0" prefWidth="182.0" text="Save Exam Details">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

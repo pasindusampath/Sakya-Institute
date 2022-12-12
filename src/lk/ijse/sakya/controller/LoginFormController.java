@@ -22,6 +22,8 @@ import lk.ijse.sakya.thread.LoginFormTask;
 import lk.ijse.sakya.thread.SendMail;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -37,10 +39,15 @@ public class LoginFormController {
     public JFXPasswordField txtPassword;
     public JFXProgressBar progressBar;
     public JFXButton btnLogIn;
-    public String sourcePath ;
 
-    public void initialize() {
+
+
+
+
+    public void initialize() throws IOException {
         progressBar.setVisible(false);
+        //FileSystems.getDefault().getPath("lk/ijse/sakya/view/admindashboard/ValidateGmailForm.fxml").toRealPath().toString();
+        //System.out.println(FileSystems.getDefault().getPath("lk/ijse/sakya/view/admindashboard/ValidateGmailForm.fxml"));
     }
 
     public void btnLogInOnAction(ActionEvent actionEvent) throws IOException {
@@ -120,30 +127,29 @@ public class LoginFormController {
                 return;
             }
             Stage stage = new Stage();
-            sourcePath = isProgramRunnedFromJar() ?   "src/lk/ijse/sakya/view/admindashboard/ValidateGmailForm.fxml" : "../view/admindashboard/ValidateGmailForm.fxml" ;
-            URL resource = getClass().getResource(sourcePath);
+            URL resource = getClass().getResource("../view/admindashboard/ValidateGmailForm.fxml");
             FXMLLoader f1 = new FXMLLoader(resource);
             Parent load = f1.load();
             ValidateGmailFormController controller = f1.getController();
             controller.setLblGmail(user.getGmail());
             stage.setScene(new Scene(load));
-            stage.initOwner( btnLogIn.getScene().getWindow());
+            stage.initOwner(btnLogIn.getScene().getWindow());
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
             if (!controller.isValidated()) {
                 new Alert(Alert.AlertType.ERROR, "Password Reset Failed ").show();
                 return;
             }
-            Random r= new Random();
+            Random r = new Random();
             int rand;
-            do{
+            do {
                 rand = r.nextInt(999999999);
-            }while(!(rand>10000000));
+            } while (!(rand > 10000000));
             user.setPassword(String.valueOf(rand));
             boolean b = UserController.resetPassword(user);
-            if(b){
+            if (b) {
                 SendMail ob = new SendMail(user.getGmail(), "Password Reset Success",
-                        "Your New Password is : "+user.getPassword());
+                        "Your New Password is : " + user.getPassword());
                 Thread t1 = new Thread(ob);
                 t1.start();
             }
@@ -154,26 +160,6 @@ public class LoginFormController {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }
-    }
-    public boolean isProgramRunnedFromJar() {
-        try {
-            File x = getCurrentJarFileLocation();
-            if (x.getAbsolutePath().contains("target" + File.separator + "classes")) {
-                return false;
-            } else {
-                return true;
-            }
-        }catch (NullPointerException e){
-            return false;
-        }
-    }
-    public File getCurrentJarFileLocation() {
-        try {
-            return new File(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath());
-        } catch(URISyntaxException e){
-            e.printStackTrace();
-            return null;
         }
     }
 }

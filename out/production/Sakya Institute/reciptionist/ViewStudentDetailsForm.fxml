@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="487.0" prefWidth="969.0" stylesheets="@../../stylesheet/reciptionist/ViewStudentDetails.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.sakya.controller.receptionist.ViewStudentDetailsFormController">
+   <children>
+      <JFXTextField fx:id="txtStudentId" layoutX="23.0" layoutY="13.0" prefHeight="40.0" prefWidth="268.0" promptText="Student ID" />
+      <JFXButton contentDisplay="GRAPHIC_ONLY" layoutX="243.0" layoutY="13.0" onAction="#btnSearchOnAction" prefHeight="32.0" prefWidth="35.0">
+         <graphic>
+            <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../assert/search%20(2).png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <TableView fx:id="tblClasses" layoutX="48.0" layoutY="105.0" onMouseClicked="#tblClassOnMouseClickAction" prefHeight="342.0" prefWidth="325.0">
+        <columns>
+          <TableColumn fx:id="colClassName" prefWidth="171.0" text="Class Name" />
+          <TableColumn fx:id="colTeacher" prefWidth="152.0" text="Teacher" />
+        </columns>
+      </TableView>
+      <TableView fx:id="tblAttendence" layoutX="438.0" layoutY="105.0" prefHeight="342.0" prefWidth="186.0">
+         <columns>
+            <TableColumn fx:id="colDate" prefWidth="119.0" text="Date" />
+            <TableColumn fx:id="colStatus" prefWidth="64.0" text="Status" />
+         </columns>
+      </TableView>
+      <TableView fx:id="tblExam" layoutX="692.0" layoutY="105.0" prefHeight="342.0" prefWidth="250.0">
+         <columns>
+            <TableColumn fx:id="collExamId" prefWidth="132.0" text="Exam ID" />
+            <TableColumn fx:id="colModuleName" prefWidth="65.0" text="Module" />
+            <TableColumn fx:id="colResult" prefWidth="50.0" text="Result" />
+         </columns>
+      </TableView>
+      <Label layoutX="608.0" layoutY="13.0" prefHeight="40.0" prefWidth="97.0" text="Student Name : " />
+      <Label fx:id="lblStudentName" layoutX="705.0" layoutY="13.0" prefHeight="40.0" prefWidth="250.0" />
+      <JFXButton fx:id="btnQr" contentDisplay="GRAPHIC_ONLY" layoutX="305.0" layoutY="13.0" onAction="#btnQrOnAction" prefHeight="17.0" prefWidth="26.0" text=" ">
+         <graphic>
+            <ImageView fitHeight="35.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../assert/qrIcon.gif" />
+               </image>
+            </ImageView>
+         </graphic></JFXButton>
+   </children>
+</AnchorPane>
