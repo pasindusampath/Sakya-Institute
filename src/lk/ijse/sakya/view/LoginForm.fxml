@@ -13,16 +13,16 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="loginFormContext" prefHeight="700.0" prefWidth="1366.0" stylesheets="@../stylesheet/LoginForm.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.sakya.controller.LoginFormController">
+<AnchorPane fx:id="loginFormContext" prefHeight="700.0" prefWidth="1366.0" stylesheets="LoginForm.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.sakya.controller.LoginFormController">
    <children>
       <ImageView fitHeight="700.0" fitWidth="1366.0" pickOnBounds="true">
          <image>
-            <Image url="@../assert/login2.png" />
+            <Image url="login2.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="693.0" fitWidth="900.0" layoutY="7.0" opacity="0.26" pickOnBounds="true">
          <image>
-            <Image url="@../assert/c79599ef07d407d4-gif-clipart-images-of-computer-learning-collection.gif" />
+            <Image url="c79599ef07d407d4-gif-clipart-images-of-computer-learning-collection.gif" />
          </image>
       </ImageView>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2f3b46" height="381.0" layoutX="953.0" layoutY="276.0" stroke="BLACK" strokeType="INSIDE" width="363.0" />
@@ -44,7 +44,7 @@
       <TextArea editable="false" layoutX="61.0" layoutY="154.0" prefHeight="466.0" prefWidth="632.0" text="Established in 1999, as a secondary educational institute catering to the young individuals waiting to contribute to &#10;the growth of the country, “Sakya” is perhaps the most common name that comes to the minds of both parents &#10;and students in search of assistance in studies.&#10;&#10;&#10;Over the years our institute has produced some of the top scoring students in the Island in the Science, &#10;Mathematics, Commerce and Art streams who not only have the subject knowledge but also are &#10;talented in applying it in real life situations.&#10;&#10;&#10;By being true to our mission statement “To guide our students towards the fortunes of knowledge producing &#10;winners amongst winners as well as disciplined all-round individuals with respectable social values” we have &#10;grown over the years as group of companies located in the Nugegoda area and aim to achieve more together &#10;with our panel of lecturers led by highly qualified Bandara Dissanayake.&#10;&#10;&#10;Mr. Dissanayake who has been the man behind the success of the institute is a lecturer in Economics and Business &#10;Studies. Starting off from 2004 he has produced students who obtained the Island’s best results, top scorers &#10;in Colombo and Gampaha districts in the Commerce stream.&#10;&#10;&#10;Sakya Higher Education Institute is the only organization to recognize and celebrate the achievements of &#10;their best performers. Upon completing the A/L examinations students have the chance to study further &#10;at member institutes of Sakya; Saegis Campus, Siksil Institute of Business &amp; Technology or Inspiro on &#10;the field of their choice." />
       <ImageView fitHeight="88.0" fitWidth="96.0" layoutX="1090.0" layoutY="283.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../assert/user.png" />
+            <Image url="user.png" />
          </image>
       </ImageView>
       <JFXProgressBar fx:id="progressBar" layoutX="953.0" layoutY="535.0" prefHeight="3.0" prefWidth="363.0" />

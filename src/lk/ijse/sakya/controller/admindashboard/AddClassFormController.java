@@ -2,15 +2,12 @@ package lk.ijse.sakya.controller.admindashboard;
 
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import com.mysql.cj.result.ValueFactory;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import javafx.util.StringConverter;
 import lk.ijse.sakya.dto.Course;
 import lk.ijse.sakya.dto.Subject;

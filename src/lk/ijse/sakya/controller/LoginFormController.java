@@ -21,6 +21,7 @@ import lk.ijse.sakya.model.UserController;
 import lk.ijse.sakya.thread.LoginFormTask;
 import lk.ijse.sakya.thread.SendMail;
 
+import java.beans.AppletInitializer;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -30,6 +31,7 @@ import java.net.URL;
 import java.nio.file.FileSystems;
 import java.sql.SQLException;
 import java.util.Random;
+import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -52,7 +54,6 @@ public class LoginFormController {
 
     public void btnLogInOnAction(ActionEvent actionEvent) throws IOException {
         task();
-
     }
 
     public void task() {
@@ -127,7 +128,7 @@ public class LoginFormController {
                 return;
             }
             Stage stage = new Stage();
-            URL resource = getClass().getResource("../view/admindashboard/ValidateGmailForm.fxml");
+            URL resource = getClass().getResource("/admindashboard/ValidateGmailForm.fxml");
             FXMLLoader f1 = new FXMLLoader(resource);
             Parent load = f1.load();
             ValidateGmailFormController controller = f1.getController();

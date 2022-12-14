@@ -31,7 +31,7 @@ public class LoadQrUiTask extends Task<Scene> {
         //System.out.println("Call");
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/reciptionist/QrScannerForm.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/reciptionist/QrScannerForm.fxml"));
             Parent load = loader.load();
             QrScannerFormController controller = loader.getController();
             controller.setController(con);

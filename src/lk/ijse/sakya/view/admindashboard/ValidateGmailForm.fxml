@@ -10,12 +10,12 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="265.0" prefWidth="525.0" stylesheets="@../../stylesheet/admin/ValidateMailForm.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.sakya.controller.admindashboard.ValidateGmailFormController">
+<AnchorPane prefHeight="265.0" prefWidth="525.0" stylesheets="/admin/ValidateMailForm.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.sakya.controller.admindashboard.ValidateGmailFormController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="265.0" stroke="BLACK" strokeType="INSIDE" width="525.0" />
       <ImageView fitHeight="265.0" fitWidth="525.0" layoutX="86.0" opacity="0.1" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../assert/gmailsync.gif" />
+            <Image url="/gmailsync.gif"/>
          </image>
       </ImageView>
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="265.0" opacity="0.17" stroke="BLACK" strokeType="INSIDE" width="525.0" />

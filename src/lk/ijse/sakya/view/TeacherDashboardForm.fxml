@@ -11,16 +11,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1366.0" stylesheets="@../stylesheet/TeacheDashBoard.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.sakya.controller.TeacherDashBoardFormController">
+<AnchorPane prefHeight="700.0" prefWidth="1366.0" stylesheets="TeacheDashBoard.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.sakya.controller.TeacherDashBoardFormController">
    <children>
       <ImageView fitHeight="700.0" fitWidth="1366.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../assert/▶%20Desktop%20-%2010.gif" />
+            <Image url="▶ Desktop - 10.gif" />
          </image>
       </ImageView>
       <ImageView fitHeight="150.0" fitWidth="160.0" layoutX="26.0" layoutY="14.0" pickOnBounds="true">
          <image>
-            <Image url="@../assert/presentation.png" />
+            <Image url="presentation.png" />
          </image>
       </ImageView>
       <JFXButton fx:id="btnManageResult" alignment="BASELINE_LEFT" layoutY="242.0" onAction="#btnManageResultOnAction" prefHeight="56.0" prefWidth="219.0" text="Manage Exam                                Results" wrapText="true" />
@@ -34,7 +34,7 @@
                <graphic>
                   <ImageView fitHeight="28.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../assert/search%20(2).png" />
+                        <Image url="search (2).png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -44,7 +44,7 @@
                <graphic>
                   <ImageView fitHeight="28.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../assert/check.png" />
+                        <Image url="check.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -54,7 +54,7 @@
                <graphic>
                   <ImageView fitHeight="28.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../assert/check.png" />
+                        <Image url="check.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -64,7 +64,7 @@
                <graphic>
                   <ImageView fitHeight="28.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../assert/check.png" />
+                        <Image url="check.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -73,7 +73,7 @@
                <graphic>
                   <ImageView fitHeight="33.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../assert/exam.png" />
+                        <Image url="exam.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -99,14 +99,14 @@
       </AnchorPane>
       <ImageView fitHeight="86.0" fitWidth="655.0" layoutX="416.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../assert/2NN6Ftsv.gif" />
+            <Image url="2NN6Ftsv.gif" />
          </image>
       </ImageView>
       <JFXButton fx:id="btnLogOut" alignment="BASELINE_LEFT" contentDisplay="RIGHT" graphicTextGap="115.0" layoutY="611.0" onAction="#btnLogOutOnAction" prefHeight="56.0" prefWidth="219.0" text="Log Out">
          <graphic>
             <ImageView fitHeight="41.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../assert/log-out.png" />
+                  <Image url="log-out.png" />
                </image>
             </ImageView>
          </graphic>

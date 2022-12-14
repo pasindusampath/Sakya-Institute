@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="487.0" prefWidth="969.0" stylesheets="@../../stylesheet/reciptionist/MakePayment.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.sakya.controller.receptionist.MakePaymentFormController">
+<AnchorPane prefHeight="487.0" prefWidth="969.0" stylesheets="/reciptionist/MakePayment.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.sakya.controller.receptionist.MakePaymentFormController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#050607" height="434.0" layoutX="64.0" layoutY="32.0" opacity="0.16" stroke="BLACK" strokeType="INSIDE" width="369.0" />
       <JFXTextField fx:id="txtStudentId" layoutX="111.0" layoutY="216.0" onAction="#btnOkOnAction" prefHeight="25.0" prefWidth="228.0" promptText="Student ID" />
@@ -21,7 +21,7 @@
          <graphic>
             <ImageView fitHeight="33.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../assert/ok%20(1).png" />
+                  <Image url="/ok (1).png" />
                </image>
             </ImageView>
          </graphic>
@@ -32,7 +32,7 @@
          <graphic>
             <ImageView fitHeight="38.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../assert/icons8-next-page-100.png" />
+                  <Image url="/icons8-next-page-100.png" />
                </image>
             </ImageView>
          </graphic></JFXButton>
@@ -43,7 +43,7 @@
          </graphic></JFXButton>
       <ImageView blendMode="MULTIPLY" fitHeight="124.0" fitWidth="135.0" layoutX="187.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../assert/icons8-us-dollar-circled.gif" />
+            <Image url="/icons8-us-dollar-circled.gif" />
          </image>
       </ImageView>
       <JFXButton fx:id="btnClear" layoutX="315.0" layoutY="397.0" onAction="#btnClearOnAction" prefHeight="27.0" prefWidth="97.0" text="Clear" />
@@ -51,7 +51,7 @@
          <graphic>
             <ImageView fitHeight="34.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../assert/qrIcon.gif" />
+                  <Image url="/qrIcon.gif" />
                </image>
             </ImageView>
          </graphic></JFXButton>

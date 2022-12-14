@@ -14,7 +14,7 @@
 
 <AnchorPane prefHeight="487.0" prefWidth="969.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.sakya.controller.receptionist.MarkAttendenceController">
    <children>
-      <AnchorPane prefHeight="487.0" prefWidth="969.0" stylesheets="@../../stylesheet/reciptionist/MarkAttendence.css">
+      <AnchorPane prefHeight="487.0" prefWidth="969.0" stylesheets="/reciptionist/MarkAttendence.css">
          <children>
             <TableView fx:id="tblLectureId" layoutX="30.0" layoutY="63.0" onMouseClicked="#tblLectureIdOnMouseClickAction" prefHeight="379.0" prefWidth="329.0">
                <columns>
@@ -57,7 +57,7 @@
                <graphic>
                   <ImageView fitHeight="21.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../assert/presentation%20(2).png" />
+                        <Image url="/presentation (2).png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -66,11 +66,12 @@
                <graphic>
                   <ImageView fitHeight="48.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../assert/qrIcon.gif" />
+                        <Image url="/qrIcon.gif" />
                      </image>
                   </ImageView>
                </graphic>
             </JFXButton>
+            <JFXButton layoutX="856.0" layoutY="38.0" onAction="#btnMobileOnAction" prefHeight="37.0" prefWidth="53.0" text="Mobile" />
          </children>
       </AnchorPane>
    </children>

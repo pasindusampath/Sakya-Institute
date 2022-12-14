@@ -28,7 +28,7 @@ public class DashBoardNavigation extends Task<Node> {
     public static void setUi(String type,AnchorPane pane1,String ui) {
         pane=pane1;
         pane.getChildren().clear();
-        temp = "../view/"+type+"/"+ui+".fxml";
+        temp = "/"+type+"/"+ui+".fxml";
         flag=true;
     }
     public static void logOut(AnchorPane pane1) {
@@ -39,7 +39,7 @@ public class DashBoardNavigation extends Task<Node> {
     public static void setUi(String type, AnchorPane pane1, String ui, User user1)  {
         pane=pane1;
         pane.getChildren().clear();
-        temp = "../view/"+type+"/"+ui+".fxml";
+        temp = "/"+type+"/"+ui+".fxml";
         user = user1;
         flag = false;
 
@@ -49,7 +49,7 @@ public class DashBoardNavigation extends Task<Node> {
     protected Node call()  {
         try {
             if(pane==null){
-                return FXMLLoader.load(DashBoardNavigation.class.getResource("../view/LoginForm.fxml"));
+                return FXMLLoader.load(DashBoardNavigation.class.getResource("/LoginForm.fxml"));
             }
             if(flag){
                 updateProgress(50,100);

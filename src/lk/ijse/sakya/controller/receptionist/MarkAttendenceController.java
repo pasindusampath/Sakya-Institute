@@ -19,6 +19,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import lk.ijse.sakya.controller.ServerController;
 import lk.ijse.sakya.db.DBConnection;
 import lk.ijse.sakya.dto.Attendence;
 import lk.ijse.sakya.dto.AttendenceTM;
@@ -59,7 +60,7 @@ public class MarkAttendenceController implements QrPerformance {
     public void btnCreateLectureOnAction(ActionEvent actionEvent) {
         Stage stage = new Stage();
         try {
-            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../../view/reciptionist" +
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/reciptionist" +
                     "/CreateLectureForm.fxml"))));
         } catch (IOException e) {
             e.printStackTrace();
@@ -226,6 +227,25 @@ public class MarkAttendenceController implements QrPerformance {
         stage.initOwner(btnOK.getScene().getWindow());
         stage.showAndWait();
         setLectureTable();*/
+
+    }
+
+    public void btnMobileOnAction(ActionEvent actionEvent) {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Server.fxml"));
+        try {
+            Parent load = loader.load();
+            ServerController controller = loader.getController();
+            stage.setScene(new Scene(load));
+            stage.show();
+            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                public void handle(WindowEvent we) {
+                    controller.closeConnections();
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 }

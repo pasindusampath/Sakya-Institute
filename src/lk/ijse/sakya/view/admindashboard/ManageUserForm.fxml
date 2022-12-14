@@ -15,7 +15,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="478.0" prefWidth="1114.0" stylesheets="@../../stylesheet/admin/ManageUsers.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.sakya.controller.admindashboard.ManageUserFormController">
+<AnchorPane prefHeight="478.0" prefWidth="1114.0" stylesheets="/admin/ManageUsers.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.sakya.controller.admindashboard.ManageUserFormController">
    <children>
       <AnchorPane fx:id="manageUserContext" prefHeight="478.0" prefWidth="1114.0">
          <children>
@@ -29,7 +29,7 @@
                <graphic>
                   <ImageView fitHeight="39.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../assert/search%20(1).png" />
+                        <Image url="/search (1).png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -42,7 +42,7 @@
             <JFXButton fx:id="btnUpdate" layoutX="165.0" layoutY="447.0" onAction="#btnUpdateOnAction" prefHeight="25.0" prefWidth="94.0" text="Update" />
             <JFXButton fx:id="btnDelete" layoutX="282.0" layoutY="447.0" onAction="#btnDeleteOnAction" prefHeight="25.0" prefWidth="94.0" text="Delete" />
             <JFXButton fx:id="btnClear" layoutX="399.0" layoutY="447.0" onAction="#btnClearOnAction" prefHeight="25.0" prefWidth="94.0" text="Clear" />
-            <JFXDatePicker fx:id="dpDob" defaultColor="#123632" layoutX="49.0" layoutY="279.0" prefHeight="25.0" prefWidth="399.0" promptText="Date Of Birth(MM/DD/YY)" stylesheets="@../../stylesheet/datepicker/Normal.css" />
+            <JFXDatePicker fx:id="dpDob" defaultColor="#123632" layoutX="49.0" layoutY="279.0" prefHeight="25.0" prefWidth="399.0" promptText="Date Of Birth(MM/DD/YY)" stylesheets="/datepicker/Normal.css" />
             <TableView fx:id="tableUsers" layoutX="546.0" layoutY="110.0" onMouseClicked="#tableOnMouseClickAction" prefHeight="296.0" prefWidth="536.0">
               <columns>
                 <TableColumn fx:id="colId" prefWidth="102.0" text="Id" />

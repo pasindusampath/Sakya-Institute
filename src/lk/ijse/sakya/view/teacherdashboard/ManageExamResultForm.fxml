@@ -12,14 +12,14 @@
 
 <AnchorPane prefHeight="468.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.sakya.controller.teachedashboard.ManageExamResultFormController">
    <children>
-      <AnchorPane prefHeight="468.0" prefWidth="1000.0" stylesheets="@../../stylesheet/teacher/ManageExamResultForm.css">
+      <AnchorPane prefHeight="468.0" prefWidth="1000.0" stylesheets="/teacher/ManageExamResultForm.css">
          <children>
             <JFXTextField fx:id="txtSearch" layoutX="14.0" layoutY="14.0" prefHeight="32.0" prefWidth="207.0" />
             <JFXButton contentDisplay="CENTER" graphicTextGap="0.0" layoutX="177.0" layoutY="12.0" prefHeight="32.0" prefWidth="32.0" text="  ">
                <graphic>
                   <ImageView fitHeight="28.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../assert/search%20(2).png" />
+                        <Image url="/search (2).png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -29,7 +29,7 @@
                <graphic>
                   <ImageView fitHeight="28.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../assert/check.png" />
+                        <Image url="/check.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -39,7 +39,7 @@
                <graphic>
                   <ImageView fitHeight="28.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../assert/check.png" />
+                        <Image url="/check.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -49,7 +49,7 @@
                <graphic>
                   <ImageView fitHeight="28.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../assert/check.png" />
+                        <Image url="/check.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -58,7 +58,7 @@
                <graphic>
                   <ImageView fitHeight="33.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../assert/exam.png" />
+                        <Image url="/exam.png" />
                      </image>
                   </ImageView>
                </graphic>

@@ -52,14 +52,16 @@ public class LoginFormTask extends Task<Parent> {
             }
         } catch (SQLException e) {
             updateMessage(e.getMessage());
+            e.printStackTrace();
             return null;
         } catch (ClassNotFoundException e) {
             updateMessage(e.getMessage());
-
+            e.printStackTrace();
             return null;
         } catch (NullPointerException | IOException ex) {
-            updateMessage("User Not Found");
+            //updateMessage(ex.getMessage());
             updateProgress(100,100);
+            ex.printStackTrace();
             return null;
         }
     }
@@ -73,13 +75,21 @@ public class LoginFormTask extends Task<Parent> {
         }
     }
 
-    public Parent getUi(String type,User user) throws IOException {
+    public Parent getUi(String type,User user)  {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/"+type+"DashboardForm.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/"+type+"DashboardForm.fxml"));
         updateProgress(70, 100);
-        Parent load = loader.load();
+        Parent load;
+        try {
+            load = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+
         updateProgress(90, 100);
         DashBoard controller = loader.getController();
+        System.out.println("ui Found");
         updateProgress(95, 100);
         controller.setLoggedUser(user);
         return load;

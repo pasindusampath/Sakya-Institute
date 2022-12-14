@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="478.0" prefWidth="1114.0" stylesheets="@../../stylesheet/admin/ManageClassForm.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.sakya.controller.admindashboard.ManageClassFormController">
+<AnchorPane prefHeight="478.0" prefWidth="1114.0" stylesheets="/admin/ManageClassForm.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.sakya.controller.admindashboard.ManageClassFormController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="508.0" opacity="0.1" stroke="TRANSPARENT" strokeType="INSIDE" width="1114.0" />
       <TableView fx:id="tblCourses" layoutX="46.0" layoutY="132.0" onMouseClicked="#tblCoursesMouseOnClickAction" prefHeight="296.0" prefWidth="607.0">
@@ -37,7 +37,7 @@
          <graphic>
             <ImageView fx:id="imgAddUser" fitHeight="38.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../assert/button.png" />
+                  <Image url="/button.png" />
                </image>
             </ImageView>
          </graphic>
@@ -46,7 +46,7 @@
          <graphic>
             <ImageView fitHeight="39.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../assert/search%20(1).png" />
+                  <Image url="/search (1).png" />
                </image>
             </ImageView>
          </graphic>

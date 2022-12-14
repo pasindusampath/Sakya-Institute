@@ -8,16 +8,16 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1366.0" stylesheets="@../stylesheet/ReciptionistDashBoardForm.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.sakya.controller.ReciptionistDashboardFormController">
+<AnchorPane prefHeight="700.0" prefWidth="1366.0" stylesheets="ReciptionistDashBoardForm.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.sakya.controller.ReciptionistDashboardFormController">
    <children>
       <ImageView fitHeight="700.0" fitWidth="1366.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../assert/▶%20Desktop%20-%2023.png" />
+            <Image url="▶ Desktop - 23.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="40.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../assert/information.png" />
+            <Image url="information.png" />
          </image>
       </ImageView>
       <JFXButton fx:id="btnManageStudent" alignment="BASELINE_LEFT" layoutY="236.0" onAction="#btnManageStudentOnAction" prefHeight="68.0" prefWidth="218.0" text="Manage Student" wrapText="true">
@@ -45,7 +45,7 @@
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d7ecff" height="77.0" layoutX="2.0" layoutY="1.0" opacity="0.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="0.0" width="1147.0" />
             <ImageView fitHeight="76.0" fitWidth="711.0" layoutX="123.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../assert/2NN6Ftsv.gif" />
+                  <Image url="2NN6Ftsv.gif" />
                </image>
             </ImageView>
          </children>
@@ -58,7 +58,7 @@
          <graphic>
             <ImageView fitHeight="39.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../assert/log-out.png" />
+                  <Image url="log-out.png" />
                </image>
             </ImageView>
          </graphic>
