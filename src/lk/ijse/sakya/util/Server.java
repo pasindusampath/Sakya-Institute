@@ -9,10 +9,6 @@ import java.util.Scanner;
 
 public class Server {
     private static final int port=9001;
-
-    private Handeler h1;
-
-
     public static class Handeler implements Runnable{
         private  MobileQrPerformance ob;
         private Socket soket;

@@ -13,15 +13,20 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 
 public class ServerController {
     private MobileQrPerformance ob;
     public Label lblIpAddress;
     Thread t1;
-    Thread handle;
-    Server.Handeler h;
+    Thread handleThread;
+    Server.Handeler handler;
+    ArrayList<Thread> handles;
+    ArrayList<Server.Handeler> handelers;
     ServerSocket listner;
     public void initialize() throws UnknownHostException {
+        handles= new ArrayList<>();
+        handelers=new ArrayList<>();
         lblIpAddress.setText(InetAddress.getLocalHost().toString());
          t1 = new Thread(){
             @Override
@@ -34,9 +39,11 @@ public class ServerController {
                         Socket socket = listner.accept();
                         System.out.println("Client Added");
                         System.out.println(socket.getInetAddress());
-                        h=new Server.Handeler(socket,ob);
-                        handle = new Thread(h);
-                        handle.start();
+                        handler=new Server.Handeler(socket,ob);
+                        handleThread = new Thread(handler);
+                        handelers.add(handler);
+                        handles.add(handleThread);
+                        handleThread.start();
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -49,8 +56,16 @@ public class ServerController {
         try {
             listner.close();
             t1.stop();
-            handle.stop();
-            h.getSoket().close();
+            for(Thread ob:handles){
+                ob.stop();
+            }
+            for(Server.Handeler ob:handelers){
+                if(ob.getSoket().isClosed()){
+                    System.out.println("Already Closed");
+                    continue;
+                }
+                ob.getSoket().close();
+            }
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
