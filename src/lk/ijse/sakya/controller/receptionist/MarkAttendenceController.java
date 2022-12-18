@@ -24,6 +24,7 @@ import lk.ijse.sakya.db.DBConnection;
 import lk.ijse.sakya.dto.Attendence;
 import lk.ijse.sakya.dto.AttendenceTM;
 import lk.ijse.sakya.dto.LectureTM;
+import lk.ijse.sakya.interfaces.MobileQrPerformance;
 import lk.ijse.sakya.interfaces.QrPerformance;
 import lk.ijse.sakya.model.AttendenceController;
 import lk.ijse.sakya.model.LectureController;
@@ -34,7 +35,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class MarkAttendenceController implements QrPerformance {
+public class MarkAttendenceController implements MobileQrPerformance {
     public JFXButton btnOK;
     public TableView tblLectureId;
     public TableColumn colLectureId;
@@ -237,6 +238,7 @@ public class MarkAttendenceController implements QrPerformance {
             Parent load = loader.load();
             ServerController controller = loader.getController();
             stage.setScene(new Scene(load));
+            controller.setController(this);
             stage.show();
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 public void handle(WindowEvent we) {
@@ -247,5 +249,15 @@ public class MarkAttendenceController implements QrPerformance {
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public String getStudentDetails(String id) {
+        return getStudentDetail(id);
+    }
+
+    @Override
+    public void onClientDataReceived(String id) {
+        qrIdRequestAction(id);
     }
 }

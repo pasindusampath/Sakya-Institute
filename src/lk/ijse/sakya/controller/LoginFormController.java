@@ -99,6 +99,8 @@ public class LoginFormController {
         }
     }
 
+
+
     public void txtPasswordKeyAction(KeyEvent keyEvent) {
         if (txtPassword.getText().length() < 8) {
             txtPassword.setUnFocusColor(Paint.valueOf("#ff0000"));

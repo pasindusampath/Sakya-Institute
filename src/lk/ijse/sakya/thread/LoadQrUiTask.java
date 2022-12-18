@@ -1,5 +1,6 @@
 package lk.ijse.sakya.thread;
 
+
 import javafx.concurrent.Task;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +13,8 @@ import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 import lk.ijse.sakya.controller.receptionist.QrScannerFormController;
 import lk.ijse.sakya.interfaces.QrPerformance;
+
+
 
 import java.io.IOException;
 

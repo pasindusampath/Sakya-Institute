@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
+import lk.ijse.sakya.interfaces.MobileQrPerformance;
 import lk.ijse.sakya.util.Server;
 
 import java.io.IOException;
@@ -14,6 +15,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 public class ServerController {
+    private MobileQrPerformance ob;
     public Label lblIpAddress;
     Thread t1;
     Thread handle;
@@ -25,13 +27,17 @@ public class ServerController {
             @Override
             public void run(){
                 System.out.println("Server Started");
+
                 try {
                     listner = new ServerSocket(9001);
-                    Socket socket = listner.accept();
-                    System.out.println(socket.getInetAddress());
-                    h=new Server.Handeler(socket);
-                    handle = new Thread(h);
-                    handle.start();
+                    while(true){
+                        Socket socket = listner.accept();
+                        System.out.println("Client Added");
+                        System.out.println(socket.getInetAddress());
+                        h=new Server.Handeler(socket,ob);
+                        handle = new Thread(h);
+                        handle.start();
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -49,6 +55,10 @@ public class ServerController {
             System.out.println(e.getMessage());
         }
         //Server.Handeler.
+    }
+
+    public void setController(MobileQrPerformance ob){
+        this.ob=ob;
     }
 
 }
