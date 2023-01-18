@@ -18,7 +18,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/lk/ijse/sakya/assert" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/lk/ijse/sakya/stylesheet" type="java-resource" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library" exported="">
       <library>
