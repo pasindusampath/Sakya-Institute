@@ -8,7 +8,7 @@ import lk.ijse.sakya.util.CrudUtil;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+//Done
 public class CourseController {
     public static String getNewCourseId() throws SQLException, ClassNotFoundException {
         String lastCourseId=getLastCourseId();
