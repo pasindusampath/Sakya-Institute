@@ -2,7 +2,6 @@ package lk.ijse.sakya.dao.custom.impl;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javassist.compiler.CompileError;
 import lk.ijse.sakya.dao.custom.ExamDAO;
 import lk.ijse.sakya.db.DBConnection;
 import lk.ijse.sakya.entity.custom.Exam;
