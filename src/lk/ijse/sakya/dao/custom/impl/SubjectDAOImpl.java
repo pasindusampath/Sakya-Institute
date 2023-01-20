@@ -1,19 +1,37 @@
-package lk.ijse.sakya.model;
+package lk.ijse.sakya.dao.custom.impl;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import lk.ijse.sakya.dto.Subject;
+import lk.ijse.sakya.dao.custom.SubjectDAO;
+import lk.ijse.sakya.entity.custom.Subject;
 import lk.ijse.sakya.util.CrudUtil;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-//Done
-public class SubjectController {
-    public static boolean addSubject(Subject sub) throws SQLException, ClassNotFoundException {
+
+public class SubjectDAOImpl implements SubjectDAO {
+    @Override
+    public boolean add(Subject sub) throws SQLException, ClassNotFoundException {
         return CrudUtil.execute("insert into subject values(?,?,?)",sub.getId(),sub.getName(),sub.getGrade());
     }
 
-    public static String getNewUserId() throws SQLException, ClassNotFoundException {
+    @Override
+    public boolean update(Subject obj) throws SQLException, ClassNotFoundException {
+        throw new RuntimeException("Not Implemented");
+    }
+
+    @Override
+    public Subject search(String s) throws SQLException, ClassNotFoundException {
+        throw new RuntimeException("Not Implemented");
+    }
+
+    @Override
+    public boolean delete(String s) throws SQLException, ClassNotFoundException {
+        throw new RuntimeException("Not Implemented");
+    }
+
+    @Override
+    public String getNewSubjectId() throws SQLException, ClassNotFoundException {
         String lastOrderId=getLastSubjectId();
         if(lastOrderId==null){
             return "S-001";
@@ -26,7 +44,8 @@ public class SubjectController {
         }
     }
 
-    private static String getLastSubjectId() throws SQLException, ClassNotFoundException {
+    @Override
+    public String getLastSubjectId() throws SQLException, ClassNotFoundException {
         ResultSet rs = CrudUtil.execute("SELECT id from subject order by id DESC limit 1");
         if(rs.next()){
             return rs.getString(1);
@@ -34,7 +53,8 @@ public class SubjectController {
         return null;
     }
 
-    public static ObservableList<Subject> getSubjects(int grade) throws SQLException, ClassNotFoundException {
+    @Override
+    public ObservableList<Subject> getSubjects(int grade) throws SQLException, ClassNotFoundException {
         ResultSet rs = CrudUtil.execute("SELECT * from subject where grade = ?",grade);
         ObservableList<Subject> sList = FXCollections.observableArrayList();
         while(rs.next()){
@@ -42,15 +62,5 @@ public class SubjectController {
             sList.add(temp);
         }
         return sList;
-    }
-
-    public static boolean updateSubject(Subject subject) throws SQLException, ClassNotFoundException {
-        return CrudUtil.execute("update subject set name = ? , grade = ? where id = ?",subject.getName(),
-                subject.getGrade(),subject.getId());
-
-    }
-
-    public static boolean deleteSubject(String id) throws SQLException, ClassNotFoundException {
-        return CrudUtil.execute("delete from subject where id = ?", id);
     }
 }

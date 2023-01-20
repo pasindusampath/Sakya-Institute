@@ -13,7 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-
+//Done
 public class AttendenceController {
     public static boolean addAttendence(ArrayList<Attendence> ob) throws SQLException, ClassNotFoundException {
         for (Attendence obj : ob) {

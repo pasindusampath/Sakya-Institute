@@ -1,18 +1,50 @@
-package lk.ijse.sakya.model;
+package lk.ijse.sakya.dao.custom.impl;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import lk.ijse.sakya.dao.custom.StudentDAO;
 import lk.ijse.sakya.dto.CourseTM;
-import lk.ijse.sakya.dto.Student;
+import lk.ijse.sakya.entity.custom.Student;
 import lk.ijse.sakya.util.CrudUtil;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-//Done
-public class StudentController {
 
-    public static String getNewStudentId() throws SQLException, ClassNotFoundException {
+public class StudentDAOImpl implements StudentDAO {
+    @Override
+    public boolean add(Student student) throws SQLException, ClassNotFoundException {
+        return CrudUtil.execute("insert into student values(?,?,?,?,?,?,?,?)",student.getId(),
+                student.getName(),student.getDob(),student.getAddress(),student.getContact(),
+                student.getGmail(),student.getP_gmail(),student.getP_contact());
+    }
+
+    @Override
+    public boolean update(Student student) throws SQLException, ClassNotFoundException {
+        return CrudUtil.execute("update student set name = ? ,dob = ?,address = ?, contact = ? ,gmail = ?, " +
+                        "p_mail = ? , p_contact = ? where id = ?",student.getName(),student.getDob(),student.getAddress(),
+                student.getContact(),student.getGmail(),student.getP_gmail(),student.getP_contact(),student.getId());
+    }
+
+    @Override
+    public Student search(String id) throws SQLException, ClassNotFoundException {
+        ResultSet rs = CrudUtil.execute("SELECT * from student where id = ?", id);
+        Student temp = null;
+        if(rs.next()) {
+            temp = new Student(rs.getString(1), rs.getString(2), rs.getString(3),
+                    rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7),
+                    rs.getString(8));
+        }
+        return temp;
+    }
+
+    @Override
+    public boolean delete(String id) throws SQLException, ClassNotFoundException {
+        return CrudUtil.execute("delete from student where id = ? ",id);
+    }
+
+    @Override
+    public String getNewStudentId() throws SQLException, ClassNotFoundException {
         String lastStudentId=getLastStudentId();
         if(lastStudentId==null){
             return "St-000000000001";
@@ -25,7 +57,8 @@ public class StudentController {
         }
     }
 
-    private static String getLastStudentId() throws SQLException, ClassNotFoundException {
+    @Override
+    public String getLastStudentId() throws SQLException, ClassNotFoundException {
         ResultSet rs = CrudUtil.execute("SELECT id from student order by id DESC limit 1");
         if(rs.next()){
             return rs.getString(1);
@@ -33,19 +66,8 @@ public class StudentController {
         return null;
     }
 
-    public static boolean addStudent(Student student) throws SQLException, ClassNotFoundException {
-        return CrudUtil.execute("insert into student values(?,?,?,?,?,?,?,?)",student.getId(),
-                student.getName(),student.getDob(),student.getAddress(),student.getContact(),
-                student.getGmail(),student.getP_gmail(),student.getP_contact());
-    }
-
-    public static boolean updateStudent(Student student) throws SQLException, ClassNotFoundException {
-        return CrudUtil.execute("update student set name = ? ,dob = ?,address = ?, contact = ? ,gmail = ?, " +
-                "p_mail = ? , p_contact = ? where id = ?",student.getName(),student.getDob(),student.getAddress(),
-                student.getContact(),student.getGmail(),student.getP_gmail(),student.getP_contact(),student.getId());
-    }
-
-    public static ObservableList<Student> getAllStudents() throws SQLException, ClassNotFoundException {
+    @Override
+    public ObservableList<Student> getAllStudents() throws SQLException, ClassNotFoundException {
         ResultSet rs = CrudUtil.execute("SELECT * from student");
         ObservableList<Student> list = FXCollections.observableArrayList();
         while (rs.next()){
@@ -57,22 +79,8 @@ public class StudentController {
         return list;
     }
 
-    public static boolean deleteStudent(String id) throws SQLException, ClassNotFoundException {
-        return CrudUtil.execute("delete from student where id = ? ",id);
-    }
-
-    public static Student searchStudent(String id) throws SQLException, ClassNotFoundException {
-        ResultSet rs = CrudUtil.execute("SELECT * from student where id = ?", id);
-        Student temp = null;
-        if(rs.next()) {
-            temp = new Student(rs.getString(1), rs.getString(2), rs.getString(3),
-                    rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7),
-                    rs.getString(8));
-        }
-        return temp;
-    }
-
-    public static ArrayList<String> getStudentsByCourseId(String courseId) throws SQLException, ClassNotFoundException {
+    @Override
+    public ArrayList<String> getStudentsByCourseId(String courseId) throws SQLException, ClassNotFoundException {
         ResultSet rs = CrudUtil.execute("SELECT s.id from student_course sc Inner Join " +
                 "student s ON sc.st_id =s.id where sc.c_id = ?",courseId);
         ArrayList<String> list = new ArrayList<>();
@@ -80,10 +88,10 @@ public class StudentController {
             list.add(rs.getString(1));
         }
         return list;
-
     }
 
-    public static ArrayList<Student> getStudentsByCourseId(CourseTM course) throws SQLException, ClassNotFoundException {
+    @Override
+    public ArrayList<Student> getStudentsByCourseId(CourseTM course) throws SQLException, ClassNotFoundException {
         ResultSet rs = CrudUtil.execute("SELECT s.id,s.name,s.dob,s.address,s.contact,s.gmail,s.p_mail,s.p_contact" +
                 " from student_course sc Inner Join student s ON sc.st_id =s.id where sc.c_id = ?",course.getId());
         ArrayList<Student> list = new ArrayList<>();
@@ -96,7 +104,8 @@ public class StudentController {
         return list;
     }
 
-    public static ObservableList<Student> searchStudent(String searchBy,String text) throws SQLException, ClassNotFoundException {
+    @Override
+    public ObservableList<Student> searchStudent(String searchBy, String text) throws SQLException, ClassNotFoundException {
         ResultSet rs = CrudUtil.execute("SELECT * from student where " + searchBy + " like ?", text);
         ObservableList<Student> list = FXCollections.observableArrayList();
         while (rs.next()){
@@ -107,6 +116,4 @@ public class StudentController {
         }
         return list;
     }
-
-
 }

@@ -7,7 +7,7 @@ import lk.ijse.sakya.util.CrudUtil;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+//Done
 public class UserController {
     public static User searchUser(String id) throws SQLException, ClassNotFoundException {
         ResultSet rs = CrudUtil.execute("SELECT * from user where id = ?", id);

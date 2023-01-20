@@ -1,6 +1,8 @@
 package lk.ijse.sakya.entity.custom;
 
-public class User {
+import lk.ijse.sakya.entity.SuperEntity;
+
+public class User implements SuperEntity {
     private String id;
     private String name;
     private String type;
