@@ -4,11 +4,12 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import lk.ijse.sakya.dao.custom.ExamStudentDAO;
+import lk.ijse.sakya.dao.util.CrudUtil;
 import lk.ijse.sakya.db.DBConnection;
 import lk.ijse.sakya.dto.ExamResultTM;
 import lk.ijse.sakya.entity.custom.ExamStudent;
 import lk.ijse.sakya.model.ExamStudentController;
-import lk.ijse.sakya.util.CrudUtil;
+
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

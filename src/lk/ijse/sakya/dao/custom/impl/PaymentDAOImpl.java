@@ -1,10 +1,11 @@
 package lk.ijse.sakya.dao.custom.impl;
 
 import lk.ijse.sakya.dao.custom.PaymentDAO;
+import lk.ijse.sakya.dao.util.CrudUtil;
 import lk.ijse.sakya.db.DBConnection;
 import lk.ijse.sakya.dto.Income;
 import lk.ijse.sakya.entity.custom.Payment;
-import lk.ijse.sakya.util.CrudUtil;
+
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

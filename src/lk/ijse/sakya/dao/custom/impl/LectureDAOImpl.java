@@ -3,12 +3,13 @@ package lk.ijse.sakya.dao.custom.impl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import lk.ijse.sakya.dao.custom.LectureDAO;
+import lk.ijse.sakya.dao.util.CrudUtil;
 import lk.ijse.sakya.db.DBConnection;
 import lk.ijse.sakya.dto.Attendence;
 import lk.ijse.sakya.dto.LectureTM;
 import lk.ijse.sakya.entity.custom.Lecture;
 import lk.ijse.sakya.model.AttendenceController;
-import lk.ijse.sakya.util.CrudUtil;
+
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

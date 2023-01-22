@@ -3,10 +3,10 @@ package lk.ijse.sakya.dao.custom.impl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import lk.ijse.sakya.dao.custom.CourseDAO;
+import lk.ijse.sakya.dao.util.CrudUtil;
 import lk.ijse.sakya.dto.CourseTM;
 import lk.ijse.sakya.entity.custom.Course;
-import lk.ijse.sakya.entity.custom.Subject;
-import lk.ijse.sakya.util.CrudUtil;
+
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

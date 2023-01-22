@@ -1,8 +1,9 @@
 package lk.ijse.sakya.dao.custom.impl;
 
 import lk.ijse.sakya.dao.custom.RegistrationFeeDAO;
+import lk.ijse.sakya.dao.util.CrudUtil;
 import lk.ijse.sakya.entity.custom.RegistrationFee;
-import lk.ijse.sakya.util.CrudUtil;
+
 
 import java.sql.SQLException;
 

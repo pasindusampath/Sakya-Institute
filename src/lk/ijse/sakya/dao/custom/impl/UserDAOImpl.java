@@ -3,8 +3,9 @@ package lk.ijse.sakya.dao.custom.impl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import lk.ijse.sakya.dao.custom.UserDAO;
+import lk.ijse.sakya.dao.util.CrudUtil;
 import lk.ijse.sakya.entity.custom.User;
-import lk.ijse.sakya.util.CrudUtil;
+
 
 
 import java.sql.ResultSet;

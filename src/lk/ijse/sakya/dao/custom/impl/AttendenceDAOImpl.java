@@ -3,13 +3,14 @@ package lk.ijse.sakya.dao.custom.impl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import lk.ijse.sakya.dao.custom.AttendenceDAO;
+import lk.ijse.sakya.dao.util.CrudUtil;
 import lk.ijse.sakya.db.DBConnection;
 import lk.ijse.sakya.dto.AttendenceTM;
 import lk.ijse.sakya.dto.DateAttendenceTM;
 import lk.ijse.sakya.dto.Payment;
 import lk.ijse.sakya.entity.custom.Attendence;
 import lk.ijse.sakya.model.PaymentController;
-import lk.ijse.sakya.util.CrudUtil;
+
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
