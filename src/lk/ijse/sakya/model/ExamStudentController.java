@@ -11,7 +11,7 @@ import lk.ijse.sakya.util.CrudUtil;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
+//Done
 public class ExamStudentController {
     public static boolean addStudentExamRecord(ArrayList<ExamStudent> list) throws SQLException, ClassNotFoundException {
         for (ExamStudent ob : list) {

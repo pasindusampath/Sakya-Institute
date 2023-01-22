@@ -26,6 +26,7 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.FileSystems;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -372,8 +373,8 @@ public class ManageUserFormController {
         QRCodeWriter barcodeWriter = new QRCodeWriter();
         BitMatrix bitMatrix =
                 barcodeWriter.encode(barcodeText, BarcodeFormat.QR_CODE, 200, 200);
-        File outputfile = new File("G:\\IJSE\\GDSE 63\\DBP\\FinalProject\\Sakya Institute\\src\\" +
-                "userQr\\"+barcodeText+".jpg");
+        File outputfile = new File(FileSystems.getDefault().getPath("src\\" +"userQr\\"+barcodeText+".jpg").toAbsolutePath().toString());
+
         ImageIO.write(MatrixToImageWriter.toBufferedImage(bitMatrix), "jpg", outputfile);
         //sendMail(outputfile);
         return outputfile;
