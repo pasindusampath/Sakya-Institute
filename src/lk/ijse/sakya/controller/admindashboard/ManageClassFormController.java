@@ -26,6 +26,8 @@ import lk.ijse.sakya.dto.User;
 import lk.ijse.sakya.model.CourseController;
 import lk.ijse.sakya.model.SubjectController;
 import lk.ijse.sakya.model.UserController;
+import lk.ijse.sakya.service.custom.CourseService;
+import lk.ijse.sakya.service.custom.SubjectService;
 
 import java.io.IOException;
 import java.net.URL;
@@ -34,6 +36,8 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 public class ManageClassFormController {
+    SubjectService subjectService;
+    CourseService courseService;
     public JFXButton btnAdd;
     public JFXComboBox cbTeachers;
     public JFXComboBox cbSubject;
@@ -75,7 +79,7 @@ public class ManageClassFormController {
         colTeacherId.setCellValueFactory(new PropertyValueFactory<CourseTM, String>("teacherId"));
 
         try {
-            tblCourses.setItems(CourseController.getCourseDetailForTables());
+            tblCourses.setItems(courseService.getCourseDetailForTables());
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, "Getting Course Detail Error - Database Error").show();
 
@@ -177,7 +181,7 @@ public class ManageClassFormController {
             }
         });
         try {
-            cbSubject.setItems(SubjectController.getSubjects(grade));
+            cbSubject.setItems(subjectService.getSubjects(grade));
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, "Getting Course Detail Error - Database Error").show();
 
