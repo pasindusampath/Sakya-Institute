@@ -8,14 +8,14 @@ import lk.ijse.sakya.dao.util.CrudUtil;
 import lk.ijse.sakya.db.DBConnection;
 import lk.ijse.sakya.dto.ExamResultTM;
 import lk.ijse.sakya.entity.custom.ExamStudent;
-import lk.ijse.sakya.model.ExamStudentController;
+
 
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ExamStudentImpl implements ExamStudentDAO {
+public class ExamStudentDAOImpl implements ExamStudentDAO {
 
     @Override
     public boolean add(ExamStudent ob) throws SQLException, ClassNotFoundException {
@@ -60,7 +60,7 @@ public class ExamStudentImpl implements ExamStudentDAO {
             }
             JFXTextField temp = new JFXTextField(mark);
             //temp.setStyle("../stylesheet/");
-            temp.getStylesheets().add(ExamStudentController.class.getResource("../stylesheet/TextField.css").toExternalForm());
+            temp.getStylesheets().add(getClass().getResource("/TextField.css").toExternalForm());
             list.add(new ExamResultTM(rs.getString(1), rs.getString(2), temp));
         }
         return list;
@@ -102,7 +102,7 @@ public class ExamStudentImpl implements ExamStudentDAO {
             JFXTextField temp = new JFXTextField(mark);
             //temp.setStyle("../stylesheet/");
             temp.setEditable(false);
-            temp.getStylesheets().add(ExamStudentController.class.getResource("../stylesheet/TextField.css")
+            temp.getStylesheets().add(getClass().getResource("/TextField.css")
                     .toExternalForm());
             list.add(new ExamResultTM(rs.getString(1), rs.getString(2), temp));
         }

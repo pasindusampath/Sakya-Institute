@@ -1,11 +1,9 @@
 package lk.ijse.sakya.util;
 
-import lk.ijse.sakya.controller.receptionist.MarkAttendenceController;
-import lk.ijse.sakya.interfaces.MobileQrPerformance;
+import lk.ijse.sakya.service.interfaces.MobileQrPerformance;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.Scanner;
 
 public class Server {
     private static final int port=9001;

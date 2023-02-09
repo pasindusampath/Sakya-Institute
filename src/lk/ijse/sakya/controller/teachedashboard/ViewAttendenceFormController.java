@@ -4,10 +4,6 @@ import com.jfoenix.controls.JFXComboBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.SortEvent;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -16,12 +12,20 @@ import javafx.scene.layout.AnchorPane;
 import javafx.util.StringConverter;
 import lk.ijse.sakya.dto.CourseTM;
 import lk.ijse.sakya.dto.DateAttendenceTM;
-import lk.ijse.sakya.dto.Student;
-import lk.ijse.sakya.dto.User;
-import lk.ijse.sakya.interfaces.DashBoard;
-import lk.ijse.sakya.model.AttendenceController;
-import lk.ijse.sakya.model.CourseController;
-import lk.ijse.sakya.model.StudentController;
+
+
+import lk.ijse.sakya.entity.custom.Student;
+import lk.ijse.sakya.entity.custom.User;
+import lk.ijse.sakya.service.interfaces.DashBoard;
+
+
+
+import lk.ijse.sakya.service.custom.AttendenceService;
+import lk.ijse.sakya.service.custom.CourseService;
+import lk.ijse.sakya.service.custom.StudentCourseService;
+import lk.ijse.sakya.service.custom.impl.AttendenceServiceImpl;
+import lk.ijse.sakya.service.custom.impl.CourseServiceImpl;
+import lk.ijse.sakya.service.custom.impl.StudentCourseServiceImpl;
 import lk.ijse.sakya.util.DashBoardNavigation;
 
 import java.io.IOException;
@@ -41,8 +45,14 @@ public class ViewAttendenceFormController implements DashBoard {
     private User user;
     private CourseTM course;
 
-    public void initialize(){
+    private CourseService courseService;
+    private StudentCourseService studentCourseService;
+    private AttendenceService attendenceService;
 
+    public void initialize(){
+        studentCourseService = new StudentCourseServiceImpl();
+        courseService = new CourseServiceImpl();
+        attendenceService = new AttendenceServiceImpl();
     }
 
     public void btnViewByDateOnAction(ActionEvent actionEvent) throws IOException {
@@ -69,7 +79,7 @@ public class ViewAttendenceFormController implements DashBoard {
             }
         });
         try {
-            ObservableList<CourseTM> courses = CourseController.getCoursesByTeacherId(userId);
+            ObservableList<CourseTM> courses = courseService.getCoursesByTeacherId(userId);
             for(CourseTM co : courses){
                 co.setCourseName(co.getYear()+" - "+co.getGrade()+" - "+co.getName());
             }
@@ -85,7 +95,7 @@ public class ViewAttendenceFormController implements DashBoard {
         colStudentId.setCellValueFactory(new PropertyValueFactory<Student,String>("id"));
         colStudentName.setCellValueFactory(new PropertyValueFactory<Student,String>("name"));
         try {
-            ArrayList<Student> list= StudentController.getStudentsByCourseId(course);
+            ArrayList<lk.ijse.sakya.entity.custom.Student> list= studentCourseService.getStudentsByCourseId(course);
             tblStudent.setItems(FXCollections.observableArrayList(list));
         } catch (SQLException e) {
             e.printStackTrace();
@@ -108,7 +118,7 @@ public class ViewAttendenceFormController implements DashBoard {
 
 
     public void tblStudentsOnAction(MouseEvent mouseEvent) {
-        Student student = (Student) tblStudent.getSelectionModel().getSelectedItem();
+        lk.ijse.sakya.entity.custom.Student student = (lk.ijse.sakya.entity.custom.Student) tblStudent.getSelectionModel().getSelectedItem();
         if(student==null){
             return;
         }
@@ -119,7 +129,7 @@ public class ViewAttendenceFormController implements DashBoard {
         colDate.setCellValueFactory(new PropertyValueFactory<DateAttendenceTM,String>("date"));
         colStatus.setCellValueFactory(new PropertyValueFactory<DateAttendenceTM,String>("status"));
         try {
-            tblDateStatus.setItems(AttendenceController.getAllAttendenceByStudentAndCourse(studentId,courseId));
+            tblDateStatus.setItems(attendenceService.getAllAttendenceByStudentAndCourse(studentId,courseId));
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {

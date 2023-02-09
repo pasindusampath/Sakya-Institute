@@ -11,18 +11,25 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import lk.ijse.sakya.dto.Attendence;
+
 import lk.ijse.sakya.dto.CourseTM;
-import lk.ijse.sakya.dto.Lecture;
-import lk.ijse.sakya.dto.StudentCourse;
-import lk.ijse.sakya.model.CourseController;
-import lk.ijse.sakya.model.LectureController;
-import lk.ijse.sakya.model.StudentController;
+
+
+import lk.ijse.sakya.entity.custom.Attendence;
+
+
+
+import lk.ijse.sakya.service.custom.CourseService;
+import lk.ijse.sakya.service.custom.LectureService;
+import lk.ijse.sakya.service.custom.StudentService;
+import lk.ijse.sakya.service.custom.impl.CourseServiceImpl;
+import lk.ijse.sakya.service.custom.impl.LectureServiceImpl;
+import lk.ijse.sakya.service.custom.impl.StudentServiceImpl;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-
+//Done
 public class CreateLectureFormController {
     public TableView tblCourseDetails;
     public TableColumn colClassId;
@@ -37,8 +44,14 @@ public class CreateLectureFormController {
     public JFXRadioButton rdSubjectName;
     public JFXTextField txtSearch;
     private CourseTM selectedCourse;
+    private LectureService lectureService;
+    private CourseService courseService;
+    private StudentService studentService;
 
     public void initialize(){
+        courseService = new CourseServiceImpl();
+        lectureService = new LectureServiceImpl();
+        studentService = new StudentServiceImpl();
         setCourseDetailsTable();
         setNewLectureId();
         datePicker.setValue(LocalDate.now());
@@ -49,16 +62,16 @@ public class CreateLectureFormController {
         String date = String.valueOf(datePicker.getValue());
         String cId = txtClassId.getText();
         try {
-            if(LectureController.isLectureAlreadyAdded(cId,date)){
+            if(lectureService.isLectureAlreadyAdded(cId,date)){
                new Alert(Alert.AlertType.ERROR,"Lecture Already Added").show();
                return;
             }
-            ArrayList<String> sIdList = StudentController.getStudentsByCourseId(cId);
+            ArrayList<String> sIdList =studentService.getStudentsByCourseId(cId);
             ArrayList<Attendence> atList = new ArrayList<>();
             for(String sid : sIdList){
                 atList.add(new Attendence(id,sid,"AB"));
             }
-            boolean flag = LectureController.addLecture(new Lecture(id, date, cId),atList);
+            boolean flag = lectureService.addLecture(new lk.ijse.sakya.entity.custom.Lecture(id, date, cId),atList);
             if(flag){
                 new Alert(Alert.AlertType.INFORMATION,"Lecture Created").show();
                 setNewLectureId();
@@ -77,7 +90,7 @@ public class CreateLectureFormController {
 
     public void setNewLectureId(){
         try {
-            lblLectureID.setText(LectureController.getNewLectureId());
+            lblLectureID.setText(lectureService.getNewLectureId());
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -91,7 +104,7 @@ public class CreateLectureFormController {
         colSubject.setCellValueFactory(new PropertyValueFactory<CourseTM,String>("name"));
         colGrade.setCellValueFactory(new PropertyValueFactory<CourseTM,Integer>("grade"));
         try {
-            tblCourseDetails.setItems(CourseController.getCourseDetails());
+            tblCourseDetails.setItems(courseService.getCourseDetails());
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR,"Getting Course Details ERROR -  Database Error").show();
         } catch (ClassNotFoundException e) {
@@ -120,7 +133,7 @@ public class CreateLectureFormController {
     }
     public void search(String searchBy){
         try {
-            ObservableList<CourseTM> courseDetails = CourseController.getCourseDetails(searchBy,
+            ObservableList<CourseTM> courseDetails = courseService.getCourseDetails(searchBy,
                     txtSearch.getText());
             tblCourseDetails.setItems(courseDetails);;
         } catch (SQLException e) {

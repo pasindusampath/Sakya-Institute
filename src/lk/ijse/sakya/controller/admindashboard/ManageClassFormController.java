@@ -19,15 +19,23 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
-import lk.ijse.sakya.dto.Course;
+
 import lk.ijse.sakya.dto.CourseTM;
-import lk.ijse.sakya.dto.Subject;
-import lk.ijse.sakya.dto.User;
-import lk.ijse.sakya.model.CourseController;
-import lk.ijse.sakya.model.SubjectController;
-import lk.ijse.sakya.model.UserController;
+
+
+import lk.ijse.sakya.entity.custom.Course;
+import lk.ijse.sakya.entity.custom.Subject;
+import lk.ijse.sakya.entity.custom.User;
+
+
+import lk.ijse.sakya.service.ServiceFactory;
+import lk.ijse.sakya.service.ServiceType;
 import lk.ijse.sakya.service.custom.CourseService;
 import lk.ijse.sakya.service.custom.SubjectService;
+import lk.ijse.sakya.service.custom.UserService;
+import lk.ijse.sakya.service.custom.impl.CourseServiceImpl;
+import lk.ijse.sakya.service.custom.impl.SubjectServiceImpl;
+import lk.ijse.sakya.service.custom.impl.UserServiceImpl;
 
 import java.io.IOException;
 import java.net.URL;
@@ -35,9 +43,12 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Optional;
 
+//Done
+
 public class ManageClassFormController {
     SubjectService subjectService;
     CourseService courseService;
+    UserService userService;
     public JFXButton btnAdd;
     public JFXComboBox cbTeachers;
     public JFXComboBox cbSubject;
@@ -59,6 +70,9 @@ public class ManageClassFormController {
     private CourseTM selectedCourse;
 
     public void initialize() {
+        userService = ServiceFactory.getInstance().getService(ServiceType.USER);
+        subjectService = ServiceFactory.getInstance().getService(ServiceType.SUBJECT);;
+        courseService = ServiceFactory.getInstance().getService(ServiceType.COURSE);
         int year = LocalDate.now().getYear();
         String[] years = {String.valueOf(year), String.valueOf(year + 1)};
         cbYear.setItems(FXCollections.observableArrayList(years));
@@ -91,7 +105,7 @@ public class ManageClassFormController {
 
     public void btnAddOnAction(ActionEvent actionEvent) {
         Stage stage = new Stage();
-        URL resource = getClass().getResource("../../view/admindashboard/AddClassForm.fxml");
+        URL resource = getClass().getResource("./admindashboard/AddClassForm.fxml");
         FXMLLoader f1 = new FXMLLoader(resource);
         Parent load = null;
         try {
@@ -196,7 +210,7 @@ public class ManageClassFormController {
         cbTeachers.setConverter(new StringConverter() {
             @Override
             public String toString(Object object) {
-                return ((User) object).getId();
+                return ((lk.ijse.sakya.entity.custom.User) object).getId();
             }
 
             @Override
@@ -205,7 +219,7 @@ public class ManageClassFormController {
             }
         });
         try {
-            cbTeachers.setItems(UserController.getTeachers());
+            cbTeachers.setItems(userService.getTeachers());
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, "Getting Teacher Detail Error - Database Error").show();
         } catch (ClassNotFoundException e) {
@@ -226,7 +240,7 @@ public class ManageClassFormController {
         Course temp = new Course(id, subjectId, year, teacherId,-1);
 
         try {
-            boolean flag = CourseController.updateCourse(temp);
+            boolean flag = courseService.updateCourse(temp);
             if (flag) {
                 new Alert(Alert.AlertType.INFORMATION, "Course Detail Update Successful").show();
                 setCourseTable();
@@ -254,7 +268,7 @@ public class ManageClassFormController {
         }
 
         try {
-            boolean flag = CourseController.deleteCourse(txtCourseId.getText());
+            boolean flag = courseService.deleteCourse(txtCourseId.getText());
             if(flag){
                 new Alert(Alert.AlertType.INFORMATION,"Subject Deleted").show();
                 btnClearOnAction(null);
@@ -269,12 +283,12 @@ public class ManageClassFormController {
 
     public void btnClearOnAction(ActionEvent actionEvent) {
         txtCourseId.clear();
-        cbGrade.getSelectionModel().select(null);
         cbSubject.getItems().clear();
-        cbTeachers.getSelectionModel().select(null);
-        cbYear.getSelectionModel().select(null);
         selectedCourse = null;
         setCourseTable();
+        cbGrade.getSelectionModel().select(null);
+        cbTeachers.getSelectionModel().select(null);
+        cbYear.getSelectionModel().select(null);
     }
 
     public void btnSearchOnAction(ActionEvent actionEvent) {
@@ -293,7 +307,7 @@ public class ManageClassFormController {
 
     public void search(String searchBy){
         try {
-            tblCourses.setItems(CourseController.searchCourses(searchBy,txtSearch.getText()));
+            tblCourses.setItems(courseService.searchCourses(searchBy,txtSearch.getText()));
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {

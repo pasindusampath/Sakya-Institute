@@ -12,6 +12,9 @@ public class User implements SuperEntity {
     private String dob;
     private String address;
 
+    public User() {
+    }
+
     public User(String id, String name, String type, String gmail, String contact, String password, String dob, String address) {
         this.id = id;
         this.name = name;

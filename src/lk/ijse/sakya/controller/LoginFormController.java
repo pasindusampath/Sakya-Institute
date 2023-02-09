@@ -16,8 +16,10 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 //import jdk.jfr.internal.tool.Main;
 import lk.ijse.sakya.controller.admindashboard.ValidateGmailFormController;
-import lk.ijse.sakya.dto.User;
-import lk.ijse.sakya.model.UserController;
+
+
+import lk.ijse.sakya.service.custom.UserService;
+import lk.ijse.sakya.service.custom.impl.UserServiceImpl;
 import lk.ijse.sakya.thread.LoginFormTask;
 import lk.ijse.sakya.thread.SendMail;
 
@@ -41,6 +43,7 @@ public class LoginFormController {
     public JFXPasswordField txtPassword;
     public JFXProgressBar progressBar;
     public JFXButton btnLogIn;
+    private UserService userService;
 
 
 
@@ -48,6 +51,7 @@ public class LoginFormController {
 
     public void initialize() throws IOException {
         progressBar.setVisible(false);
+        userService = new UserServiceImpl();
         //FileSystems.getDefault().getPath("lk/ijse/sakya/view/admindashboard/ValidateGmailForm.fxml").toRealPath().toString();
         //System.out.println(FileSystems.getDefault().getPath("lk/ijse/sakya/view/admindashboard/ValidateGmailForm.fxml"));
     }
@@ -124,7 +128,7 @@ public class LoginFormController {
     public void forgetPasswordOnAction(ActionEvent actionEvent) {
         try {
             String path = "";
-            User user = UserController.searchUserByGmail(txtUserName.getText());
+            lk.ijse.sakya.entity.custom.User user = userService.searchUserByGmail(txtUserName.getText());
             if (user == null) {
                 new Alert(Alert.AlertType.ERROR, "Enter Your Gmail Address That Used To Create Account in system").show();
                 return;
@@ -149,7 +153,7 @@ public class LoginFormController {
                 rand = r.nextInt(999999999);
             } while (!(rand > 10000000));
             user.setPassword(String.valueOf(rand));
-            boolean b = UserController.resetPassword(user);
+            boolean b = userService.resetPassword(user);
             if (b) {
                 SendMail ob = new SendMail(user.getGmail(), "Password Reset Success",
                         "Your New Password is : " + user.getPassword());

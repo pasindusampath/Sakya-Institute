@@ -4,10 +4,6 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -16,19 +12,22 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import lk.ijse.sakya.dto.CourseTM;
 import lk.ijse.sakya.dto.DateAttendenceTM;
 import lk.ijse.sakya.dto.ExamResultTM;
-import lk.ijse.sakya.dto.Student;
-import lk.ijse.sakya.interfaces.QrPerformance;
-import lk.ijse.sakya.model.AttendenceController;
-import lk.ijse.sakya.model.CourseController;
-import lk.ijse.sakya.model.ExamStudentController;
-import lk.ijse.sakya.model.StudentController;
+
+import lk.ijse.sakya.entity.custom.Student;
+import lk.ijse.sakya.service.interfaces.QrPerformance;
+import lk.ijse.sakya.service.custom.AttendenceService;
+import lk.ijse.sakya.service.custom.CourseService;
+import lk.ijse.sakya.service.custom.ExamStudentService;
+import lk.ijse.sakya.service.custom.StudentService;
+import lk.ijse.sakya.service.custom.impl.AttendenceServiceImpl;
+import lk.ijse.sakya.service.custom.impl.CourseServiceImpl;
+import lk.ijse.sakya.service.custom.impl.ExamStudentServiceImpl;
+import lk.ijse.sakya.service.custom.impl.StudentServiceImpl;
 import lk.ijse.sakya.thread.LoadQrUiTask;
 
-import java.io.IOException;
 import java.sql.SQLException;
 
 public class ViewStudentDetailsFormController implements QrPerformance {
@@ -46,6 +45,18 @@ public class ViewStudentDetailsFormController implements QrPerformance {
     public TableColumn colResult;
     public JFXButton btnQr;
     private Student student;
+    private StudentService studentService;
+    private CourseService courseService;
+    private AttendenceService attendenceService;
+    private ExamStudentService examStudentService;
+
+    public void initialize(){
+        studentService = new StudentServiceImpl();
+        courseService=new CourseServiceImpl();
+        attendenceService=new AttendenceServiceImpl();
+        examStudentService = new ExamStudentServiceImpl();
+    }
+
 
     public void tblClassOnMouseClickAction(MouseEvent mouseEvent) {
         CourseTM selectedItem =(CourseTM) tblClasses.getSelectionModel().getSelectedItem();
@@ -89,9 +100,11 @@ public class ViewStudentDetailsFormController implements QrPerformance {
     @Override
     public String getStudentDetail(String id) {
         try {
-            student = StudentController.searchStudent(id);
-            if(student!=null){
-                return student.getName();
+            lk.ijse.sakya.entity.custom.Student student = studentService.searchStudent(id);
+            this.student = new Student(student.getId(),student.getName(),student.getDob(),student.getAddress(),
+                    student.getContact(),student.getGmail(),student.getP_gmail(),student.getP_contact());
+            if(this.student !=null){
+                return this.student.getName();
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -106,7 +119,7 @@ public class ViewStudentDetailsFormController implements QrPerformance {
         colTeacher.setCellValueFactory(new PropertyValueFactory<CourseTM,String >("teacherId"));
 
             try {
-                ObservableList<CourseTM> courseList = CourseController.getCourseDetailsByStudentId(stId);
+                ObservableList<CourseTM> courseList = courseService.getCourseDetailsByStudentId(stId);
                 for(CourseTM ob : courseList){
                     ob.setCourseName(ob.getYear()+"-"+ob.getGrade()+"-"+ob.getName());
                 }
@@ -123,7 +136,7 @@ public class ViewStudentDetailsFormController implements QrPerformance {
         colDate.setCellValueFactory(new PropertyValueFactory<DateAttendenceTM,String>("date"));
         colStatus.setCellValueFactory(new PropertyValueFactory<DateAttendenceTM,String>("status"));
         try {
-            tblAttendence.setItems(AttendenceController.getAllAttendenceByStudentAndCourse(stId,cId));
+            tblAttendence.setItems(attendenceService.getAllAttendenceByStudentAndCourse(stId,cId));
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -137,7 +150,7 @@ public class ViewStudentDetailsFormController implements QrPerformance {
         colResult.setCellValueFactory(new PropertyValueFactory<ExamResultTM,JFXTextField>("txtMark"));
 
         try {
-            tblExam.setItems(ExamStudentController.getExamResultsByStudentIdAndCourseId(cId,stId));
+            tblExam.setItems(examStudentService.getExamResultsByStudentIdAndCourseId(cId,stId));
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {

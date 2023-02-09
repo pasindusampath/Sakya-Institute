@@ -10,21 +10,17 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import lk.ijse.sakya.db.DBConnection;
 import lk.ijse.sakya.dto.Income;
 import lk.ijse.sakya.dto.IncomeTM;
-import lk.ijse.sakya.dto.User;
-import lk.ijse.sakya.interfaces.DashBoard;
-import lk.ijse.sakya.model.PaymentController;
-import lk.ijse.sakya.thread.PrintBillTask;
-import lk.ijse.sakya.thread.SendMail;
-import net.sf.jasperreports.engine.*;
-import net.sf.jasperreports.engine.design.JRDesignQuery;
-import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.xml.JRXmlLoader;
-import net.sf.jasperreports.view.JasperViewer;
 
-import java.io.File;
+import lk.ijse.sakya.entity.custom.User;
+import lk.ijse.sakya.service.interfaces.DashBoard;
+
+import lk.ijse.sakya.service.custom.PaymentService;
+import lk.ijse.sakya.service.custom.PrintBillService;
+import lk.ijse.sakya.service.custom.impl.PaymentServiceImpl;
+import lk.ijse.sakya.service.custom.impl.PrintBillServiceImpl;
+
 import java.nio.file.FileSystems;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -33,7 +29,7 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class ViewIncomeFormController implements DashBoard {
+public class  ViewIncomeFormController implements DashBoard {
     public TableView table;
     public TableColumn colClass;
     public TableColumn colSubTotal;
@@ -42,9 +38,13 @@ public class ViewIncomeFormController implements DashBoard {
     public Label lblTotal;
     public JFXProgressBar progress;
     private User loggedUser;
+    private PaymentService paymentService;
+    PrintBillService printBillService;
 
     public void initialize() {
         progress.setVisible(false);
+        paymentService = new PaymentServiceImpl();
+        printBillService = new PrintBillServiceImpl();
     }
 
     public void btnPrintOnAction(ActionEvent actionEvent) {
@@ -56,7 +56,7 @@ public class ViewIncomeFormController implements DashBoard {
         colSubTotal.setCellValueFactory(new PropertyValueFactory<IncomeTM, Double>("income"));
         double total=0;
         try {
-            ArrayList<Income> list = PaymentController.getIncomeByMonth(LocalDate.now().getMonthValue(),
+            ArrayList<Income> list = paymentService.getIncomeByMonth(LocalDate.now().getMonthValue(),
                     loggedUser.getId());
 
             ArrayList<IncomeTM> list1 = new ArrayList<>();
@@ -77,7 +77,7 @@ public class ViewIncomeFormController implements DashBoard {
 
     public void setChart() {
         try {
-            HashMap hm = PaymentController.getMonthlyIncomeForTeacher(LocalDate.now().getYear(),loggedUser.getId());
+            HashMap hm = paymentService.getMonthlyIncomeForTeacher(LocalDate.now().getYear(),loggedUser.getId());
             XYChart.Series series = new XYChart.Series();
             series.setName(String.valueOf(LocalDate.now().getYear()));
             for (int i = 1; i <= 12; i++) {
@@ -111,34 +111,12 @@ public class ViewIncomeFormController implements DashBoard {
         HashMap<String, Object> para=new HashMap<>();
         para.put("total",lblTotal.getText());
         para.put("teacherName",loggedUser.getName());
-        PrintBillTask task = new PrintBillTask(billPath,sql,para,savePath);
-        progress.progressProperty().bind(task.progressProperty());
-        task.valueProperty().addListener((a,oldValue,newValue)->{
-            progress.progressProperty().unbind();
-            progress.setVisible(false);
-            if(newValue!=null){
-                if(checkBox.isSelected()){
-                    sendMail(newValue);
-                }
-            }
-        });
-        Thread t1 = new Thread(task);
-        if(!progress.isVisible()){
-            t1.start();
-            progress.setVisible(true);
-        }
+        printBillService.printBill(loggedUser,progress,checkBox.isSelected(),billPath,sql,savePath,para);
+
     }
-
-    public void sendMail(File file){
-        SendMail ob = new SendMail(loggedUser.getGmail(),"Check Your Requested Report ","Income Report",file);
-        Thread t1 = new Thread(ob);
-        t1.start();
-    }
-
-
     @Override
     public void setLoggedUser(User user) {
-        loggedUser = user;
+        loggedUser = new User(user.getId(), user.getName(), user.getType(), user.getGmail(), user.getContact(), user.getPassword(), user.getDob(), user.getAddress());
         setTable();
         setChart();
     }

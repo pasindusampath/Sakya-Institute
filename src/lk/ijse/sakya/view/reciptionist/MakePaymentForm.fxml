@@ -96,7 +96,7 @@
                 <TableColumn fx:id="colAmount" prefWidth="108.0" text="Amount" />
               </columns>
             </TableView>
-            <JFXTextField fx:id="txtReciptionistName" alignment="CENTER" layoutX="208.0" layoutY="401.0" promptText="Receptioist Name" />
+            <JFXTextField fx:id="txtReceptionistName" alignment="CENTER" layoutX="208.0" layoutY="401.0" promptText="Receptioist Name" />
             <Label layoutX="165.0" layoutY="372.0" prefHeight="17.0" prefWidth="60.0" text="Total     :" />
             <Label fx:id="lblTotal" layoutX="213.0" layoutY="368.0" prefHeight="25.0" prefWidth="124.0" />
             <Label fx:id="invoiceNo" layoutX="231.0" layoutY="71.0" prefHeight="17.0" prefWidth="135.0" />

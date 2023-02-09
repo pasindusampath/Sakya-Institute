@@ -24,6 +24,7 @@ public class Student implements SuperEntity {
         this.p_contact = p_contact;
     }
 
+
     public String getId() {
         return id;
     }

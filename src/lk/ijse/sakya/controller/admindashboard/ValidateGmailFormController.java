@@ -9,7 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.shape.Rectangle;
 
-import lk.ijse.sakya.dto.User;
+
 import lk.ijse.sakya.thread.SendMail;
 
 import java.util.Random;

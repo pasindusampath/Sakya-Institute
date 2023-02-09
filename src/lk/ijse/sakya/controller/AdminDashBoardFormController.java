@@ -1,18 +1,18 @@
 package lk.ijse.sakya.controller;
 
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
+
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.stage.Window;
-import lk.ijse.sakya.dto.User;
-import lk.ijse.sakya.interfaces.DashBoard;
+
+import lk.ijse.sakya.entity.custom.User;
+import lk.ijse.sakya.service.interfaces.DashBoard;
 import lk.ijse.sakya.util.DashBoardNavigation;
 
-import javax.xml.soap.SAAJResult;
+
 import java.io.IOException;
 
 public class AdminDashBoardFormController implements DashBoard {

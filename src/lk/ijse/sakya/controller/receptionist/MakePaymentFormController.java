@@ -19,14 +19,22 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import lk.ijse.sakya.dto.*;
-import lk.ijse.sakya.interfaces.DashBoard;
-import lk.ijse.sakya.interfaces.QrPerformance;
-import lk.ijse.sakya.model.CourseController;
-import lk.ijse.sakya.model.PaymentController;
-import lk.ijse.sakya.model.StudentController;
+import lk.ijse.sakya.entity.custom.Student;
+import lk.ijse.sakya.entity.custom.User;
+import lk.ijse.sakya.service.interfaces.DashBoard;
+import lk.ijse.sakya.service.interfaces.QrPerformance;
+
+
+
+import lk.ijse.sakya.service.custom.CourseService;
+import lk.ijse.sakya.service.custom.PaymentService;
+import lk.ijse.sakya.service.custom.PrintBillService;
+import lk.ijse.sakya.service.custom.StudentService;
+import lk.ijse.sakya.service.custom.impl.CourseServiceImpl;
+import lk.ijse.sakya.service.custom.impl.PaymentServiceImpl;
+import lk.ijse.sakya.service.custom.impl.PrintBillServiceImpl;
+import lk.ijse.sakya.service.custom.impl.StudentServiceImpl;
 import lk.ijse.sakya.thread.LoadQrUiTask;
-import lk.ijse.sakya.thread.PrintBillTask;
-import lk.ijse.sakya.thread.SendMail;
 
 
 import javax.imageio.ImageIO;
@@ -41,19 +49,18 @@ import java.util.ArrayList;
 
 import java.util.HashMap;
 
-
+//Done
 public class MakePaymentFormController implements QrPerformance, DashBoard {
     public JFXComboBox cbClasses;
     public JFXTextField txtAmount;
     public Label lblTotal;
     public AnchorPane billContext;
-    public JFXTextField txtReciptionistName;
+    public JFXTextField txtReceptionistName;
     public Label invoiceNo;
     public JFXProgressBar progress;
     public JFXButton btnQr;
     private Student student = null;
     public Label lblDate;
-    public Label lblTime;
     public TableColumn colAmount;
     public TableColumn colClassName;
     public TableView tblCoursePayment;
@@ -62,8 +69,16 @@ public class MakePaymentFormController implements QrPerformance, DashBoard {
     public JFXTextField txtStudentId;
     private CourseTM selectedItem;
     private User user;
+    private PaymentService paymentService;
+    private StudentService studentService;
+    private CourseService courseService;
+    private PrintBillService printBillService;
 
     public void initialize() {
+        courseService= new CourseServiceImpl();
+        paymentService=new PaymentServiceImpl();
+        studentService=new StudentServiceImpl();
+        printBillService = new PrintBillServiceImpl();
         setBillTable();
         setNewInvoiceId();
         setDate();
@@ -72,7 +87,7 @@ public class MakePaymentFormController implements QrPerformance, DashBoard {
 
     public void setNewInvoiceId(){
         try {
-            invoiceNo.setText(PaymentController.getNewInvoiceId());
+            invoiceNo.setText(paymentService.getNewInvoiceId());
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -100,7 +115,9 @@ public class MakePaymentFormController implements QrPerformance, DashBoard {
     public String getStudentDetail(String id) {
 
         try {
-            student = StudentController.searchStudent(id);
+            lk.ijse.sakya.entity.custom.Student student = studentService.searchStudent(id);
+            this.student=new Student(student.getId(),student.getName(),student.getDob(),student.getAddress(),student.getContact()
+            ,student.getGmail(),student.getP_gmail(),student.getP_contact());
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -145,7 +162,7 @@ public class MakePaymentFormController implements QrPerformance, DashBoard {
             }
         });
         try {
-            cbClasses.setItems(CourseController.getCourseDetailsByStudentId(stId));
+            cbClasses.setItems(courseService.getCourseDetailsByStudentId(stId));
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -174,9 +191,9 @@ public class MakePaymentFormController implements QrPerformance, DashBoard {
             new Alert(Alert.AlertType.ERROR, "Select Course From ComboBox").show();
             return;
         }
-        Payment payment = new Payment(student.getId(),selectedItem.getId(),LocalDate.now().getMonthValue());
+        lk.ijse.sakya.entity.custom.Payment payment = new lk.ijse.sakya.entity.custom.Payment(student.getId(),selectedItem.getId(),LocalDate.now().getMonthValue());
         try {
-            if(PaymentController.isAlreadyPaid(payment)){
+            if(paymentService.isAlreadyPaid(payment)){
                 new Alert(Alert.AlertType.ERROR, "Student Already Paid For This Course For "+LocalDate.now().getMonthValue()
                         +"Month").show();
                 return;
@@ -211,15 +228,28 @@ public class MakePaymentFormController implements QrPerformance, DashBoard {
 
     public void btnPayOnAction(ActionEvent actionEvent) {
         ObservableList<PaymentTM> items = tblCoursePayment.getItems();
-        ArrayList<Payment> list = new ArrayList<>();
+        ArrayList<lk.ijse.sakya.entity.custom.Payment> list = new ArrayList<>();
         for (PaymentTM ob : items) {
-            list.add(new Payment(student.getId(), ob.getCourseId(), LocalDate.now().getMonthValue()
+            list.add(new lk.ijse.sakya.entity.custom.Payment(student.getId(), ob.getCourseId(), LocalDate.now().getMonthValue()
                     , String.valueOf(LocalDate.now()), ob.getAmount(), invoiceNo.getText()));
         }
         try {
-            if (PaymentController.addPaymentRecords(list)) {
+            if (paymentService.addPaymentRecords(list)) {
                 new Alert(Alert.AlertType.INFORMATION, "Payment Complete").show();
-                printBill();
+                //-----------------------------------------------------------------------------------------------------------
+                lk.ijse.sakya.entity.custom.Student student=new lk.ijse.sakya.entity.custom.Student(this.student.getId(),
+                        this.student.getName(),this.student.getDob(),this.student.getAddress(),this.student.getContact(),
+                        this.student.getGmail(),this.student.getP_gmail(),this.student.getP_contact());
+                lk.ijse.sakya.entity.custom.User user1 = new lk.ijse.sakya.entity.custom.User(user.getId(), user.getName(),
+                        user.getType(), user.getGmail(), user.getContact(), user.getPassword(), user.getDob(), user.getAddress());
+
+                //-----------------------------------------------------------------------------------------------------------
+
+
+                paymentService.printBill(user1,txtStudentId,invoiceNo,lblTotal,progress,student);
+
+
+
                 WritableImage image = billContext.snapshot(new SnapshotParameters(), null);
                 String path = FileSystems.getDefault().getPath("StudentPayments\\" + list.get(0).getStudentId() +
                         list.get(0).getDate() + ".png").toAbsolutePath().toString();
@@ -241,7 +271,7 @@ public class MakePaymentFormController implements QrPerformance, DashBoard {
     @Override
     public void setLoggedUser(User user) {
         this.user = user;
-        txtReciptionistName.setText(user.getName());
+        txtReceptionistName.setText(user.getName());
     }
 
     public void printBill(){
@@ -256,22 +286,11 @@ public class MakePaymentFormController implements QrPerformance, DashBoard {
         para.put("studentId",txtStudentId.getText());
         para.put("invoiceNo",invoiceNo.getText());
         para.put("total",lblTotal.getText());
-        PrintBillTask ob = new PrintBillTask(billPath,sql,para,path);
-        ob.valueProperty().addListener((a,b,c)->{
-            if(c!=null){
-                progress.progressProperty().unbind();
-                progress.setVisible(false);
-                SendMail mail = new SendMail(student.getGmail(),"Payment Success","Payment Done",c);
-                Thread t1 = new Thread(mail);
-                t1.start();
-            }
-        });
-        progress.progressProperty().bind(ob.progressProperty());
-        progress.setVisible(true);
-        Thread t2 = new Thread(ob);
-        t2.start();
+
 
     }
+
+
 
     public void btnClearOnAction(ActionEvent actionEvent) {
         txtStudentId.clear();

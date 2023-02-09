@@ -8,14 +8,9 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
-import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
@@ -26,33 +21,31 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Paint;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import lk.ijse.sakya.db.DBConnection;
 import lk.ijse.sakya.dto.CourseTM;
 import lk.ijse.sakya.dto.RegistrationFee;
-import lk.ijse.sakya.dto.Student;
-import lk.ijse.sakya.dto.StudentCourse;
-import lk.ijse.sakya.interfaces.QrPerformance;
-import lk.ijse.sakya.model.CourseController;
-import lk.ijse.sakya.model.RegistrationFeeController;
-import lk.ijse.sakya.model.StudentController;
-import lk.ijse.sakya.model.StudentCourseController;
+
+import lk.ijse.sakya.entity.custom.Student;
+import lk.ijse.sakya.service.interfaces.QrPerformance;
+
+
+
+
+import lk.ijse.sakya.service.custom.CourseService;
+import lk.ijse.sakya.service.custom.StudentCourseService;
+import lk.ijse.sakya.service.custom.StudentService;
+import lk.ijse.sakya.service.custom.impl.*;
 import lk.ijse.sakya.thread.LoadQrUiTask;
 import lk.ijse.sakya.thread.SendMail;
 
-import javax.activation.DataHandler;
 import javax.imageio.ImageIO;
-import javax.mail.util.ByteArrayDataSource;
-import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
 import java.io.File;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+//Half Done
 public class ManageStudentsFormController implements QrPerformance {
     public JFXTextField txtName;
     public JFXDatePicker datePicker1;
@@ -96,8 +89,16 @@ public class ManageStudentsFormController implements QrPerformance {
     private Student selectedStudent;
     private CourseTM selectedCourse;
     private boolean flag = false;
+    private CourseService courseService;
+    private StudentService studentService;
+    private RegistrationFeeService registrationFeeService;
+    private StudentCourseService studentCourseService;
 
     public void initialize(){
+        studentCourseService = new StudentCourseServiceImpl();
+        courseService = new CourseServiceImpl();
+        studentService = new StudentServiceImpl();
+        registrationFeeService = new RegistrationFeeServiceImpl();
         txtStudentId.setEditable(false);
         setNewStudentId();
         setStudentTable();
@@ -112,7 +113,7 @@ public class ManageStudentsFormController implements QrPerformance {
         colYear1.setCellValueFactory(new PropertyValueFactory<CourseTM,Integer>("year"));
 
         try {
-            tblCourses.setItems(CourseController.getCourseDetails());
+            tblCourses.setItems(courseService.getCourseDetails());
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -139,11 +140,18 @@ public class ManageStudentsFormController implements QrPerformance {
             Student student = new Student(id,name,dob,address,contact,gmail,p_gmail,p_contact);
             RegistrationFee fee = new RegistrationFee(id,Double.parseDouble(txtFee.getText()),
                     String.valueOf(LocalDate.now()));
+
+            //---------------------------------------------------------------------------------------------------------------------------------------------------------
+            lk.ijse.sakya.entity.custom.Student st = new lk.ijse.sakya.entity.custom.Student(id,name,dob,address,contact,gmail,p_gmail,p_contact);
+            lk.ijse.sakya.entity.custom.RegistrationFee fee2 = new lk.ijse.sakya.entity.custom.RegistrationFee(id,Double.parseDouble(txtFee.getText()),
+                    String.valueOf(LocalDate.now()));
+            //---------------------------------------------------------------------------------------------------------------------------------------------------------
+
             try {
                 DBConnection.getInstance().getConnection().setAutoCommit(false);
-                boolean flag = StudentController.addStudent(student);
+                boolean flag = studentService.addStudent(st);
                 if(flag){
-                    boolean flag2 = RegistrationFeeController.addData(fee);
+                    boolean flag2 = registrationFeeService.addData(fee2);
                     if(flag2){
                         DBConnection.getInstance().getConnection().commit();
                         new Alert(Alert.AlertType.INFORMATION,"Student Added Successful").show();
@@ -222,7 +230,7 @@ public class ManageStudentsFormController implements QrPerformance {
     public void setNewStudentId(){
 
         try {
-            txtStudentId.setText(StudentController.getNewStudentId());
+            txtStudentId.setText(studentService.getNewStudentId());
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR,"Getting new Student Id Error - Database Error").show();
         } catch (ClassNotFoundException e) {
@@ -236,7 +244,7 @@ public class ManageStudentsFormController implements QrPerformance {
         colName.setCellValueFactory(new PropertyValueFactory<Student,String>("name"));
         colMobileName.setCellValueFactory(new PropertyValueFactory<Student,String>("contact"));
         try {
-            tblStudents.setItems(StudentController.getAllStudents());
+            tblStudents.setItems(studentService.getAllStudents());
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -258,7 +266,14 @@ public class ManageStudentsFormController implements QrPerformance {
             selectedStudent.setContact(txtContact1.getText());
             selectedStudent.setP_contact(txtPContact1.getText());
             try {
-                boolean flag = StudentController.updateStudent(selectedStudent);
+                //------------------------------------------------------------------------------------------------------
+                lk.ijse.sakya.entity.custom.Student st = new lk.ijse.sakya.entity.custom.Student(selectedStudent.getId(),selectedStudent.getName(),selectedStudent.getDob()
+                        ,selectedStudent.getAddress(),selectedStudent.getContact(),selectedStudent.getGmail(),selectedStudent.getP_gmail()
+                        ,selectedStudent.getP_contact());
+
+
+                //------------------------------------------------------------------------------------------------------
+                boolean flag = studentService.updateStudent(st);
                 if(flag){
                     setStudentTable();
                     new Alert(Alert.AlertType.INFORMATION,"Student Details Successfully updated").show();
@@ -288,7 +303,7 @@ public class ManageStudentsFormController implements QrPerformance {
             return;
         }
         try {
-            boolean flag = StudentController.deleteStudent(selectedStudent.getId());
+            boolean flag = studentService.deleteStudent(selectedStudent.getId());
             if(flag){
                 new Alert(Alert.AlertType.INFORMATION,"Student Deleted Successful").show();
                 btnClearOnAction1(null);
@@ -360,7 +375,7 @@ public class ManageStudentsFormController implements QrPerformance {
         String text = txtStudentId1.getText();
 
         try {
-            if(StudentController.searchStudent(text)==null){
+            if(studentService.searchStudent(text)==null){
                 new Alert(Alert.AlertType.ERROR,"Invalid Student Id").show();
                 return;
             }
@@ -369,8 +384,10 @@ public class ManageStudentsFormController implements QrPerformance {
                         "Course Id Text Field").show();
                 return;
             }
-            StudentCourse ob = new StudentCourse(text,selectedCourse.getId(),String.valueOf(LocalDate.now()));
-            boolean flag = StudentCourseController.addRecord(ob);
+            lk.ijse.sakya.entity.custom.StudentCourse ob = new lk.ijse.sakya.entity.custom.StudentCourse(text,
+                    selectedCourse.getId(),String.valueOf(LocalDate.now()));
+            
+            boolean flag = studentCourseService.addRecord(ob);
             if(flag){
                 selectedCourse=null;
                 tblCourses.getSelectionModel().select(null);
@@ -406,12 +423,12 @@ public class ManageStudentsFormController implements QrPerformance {
         colCourseId2.setCellValueFactory(new PropertyValueFactory<CourseTM,String>("id"));
         colYear2.setCellValueFactory(new PropertyValueFactory<CourseTM,Integer>("year"));
         try {
-            if(StudentController.searchStudent(txtStudentId1.getText())==null){
+            if(studentService.searchStudent(txtStudentId1.getText())==null){
                 new Alert(Alert.AlertType.ERROR,"Invalid Student Id").show();
                 tblStudentCourse.getItems().clear();
                 return;
             }
-            tblStudentCourse.setItems(StudentCourseController.getCoursesByStudentId(studentId));
+            tblStudentCourse.setItems(studentService.getCoursesByStudentId(studentId));
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -471,7 +488,7 @@ public class ManageStudentsFormController implements QrPerformance {
     @Override
     public String getStudentDetail(String id) {
         try {
-            Student student = StudentController.searchStudent(id);
+            lk.ijse.sakya.entity.custom.Student student = studentService.searchStudent(id);
             if(student!=null) {
                 return student.getName();
             }
@@ -626,10 +643,10 @@ public class ManageStudentsFormController implements QrPerformance {
         }
         try {
             if(text==null){
-                tblStudents.setItems(StudentController.getAllStudents());
+                tblStudents.setItems(studentService.getAllStudents());
                 return;
             }
-            tblStudents.setItems(StudentController.searchStudent(searchBy,text));
+            tblStudents.setItems(studentService.searchStudent(searchBy,text));
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {

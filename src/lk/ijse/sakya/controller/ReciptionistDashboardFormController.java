@@ -1,18 +1,16 @@
 package lk.ijse.sakya.controller;
 
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import lk.ijse.sakya.dto.User;
-import lk.ijse.sakya.interfaces.DashBoard;
-import lk.ijse.sakya.util.DashBoardNavigation;
 
-import java.io.IOException;
+import lk.ijse.sakya.entity.custom.User;
+import lk.ijse.sakya.service.interfaces.DashBoard;
+import lk.ijse.sakya.util.DashBoardNavigation;
 
 public class ReciptionistDashboardFormController implements DashBoard {
     public AnchorPane dashBoardContext;

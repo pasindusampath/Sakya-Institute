@@ -4,12 +4,12 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import lk.ijse.sakya.dto.User;
-import lk.ijse.sakya.interfaces.DashBoard;
+
+import lk.ijse.sakya.entity.custom.User;
+import lk.ijse.sakya.service.interfaces.DashBoard;
 
 import java.io.IOException;
 
@@ -66,6 +66,7 @@ public class DashBoardNavigation extends Task<Node> {
                 return load;
             }
         }catch(IOException e){
+            e.printStackTrace();
             updateMessage("Ui Not Found");
         }
         return null;

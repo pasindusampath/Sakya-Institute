@@ -6,13 +6,19 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import lk.ijse.sakya.dto.*;
-import lk.ijse.sakya.model.CourseController;
-import lk.ijse.sakya.model.ExamController;
-import lk.ijse.sakya.model.StudentController;
+import lk.ijse.sakya.entity.custom.ExamStudent;
+import lk.ijse.sakya.entity.custom.Module;
+
+
+
+import lk.ijse.sakya.service.custom.ExamService;
+import lk.ijse.sakya.service.custom.StudentService;
+import lk.ijse.sakya.service.custom.impl.ExamServiceImpl;
+import lk.ijse.sakya.service.custom.impl.StudentServiceImpl;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-
+//Done
 public class AddExamFormController {
     public Label lblCourseName;
     public Label lblModuleName;
@@ -21,14 +27,18 @@ public class AddExamFormController {
     public JFXCheckBox checkBox1;
     private CourseTM course;
     private Module module;
+    private ExamService examService;
+    private StudentService studentService;
 
     public void initialize(){
         setNewExamId();
+        examService = new ExamServiceImpl();
+        studentService = new StudentServiceImpl();
     }
 
     public void setNewExamId(){
         try {
-            lblExamId.setText(ExamController.getNewExamId());
+            lblExamId.setText(examService.getNewExamId());
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -38,17 +48,17 @@ public class AddExamFormController {
 
     public void btnCreateExamOnAction(ActionEvent actionEvent) {
         try {
-            ArrayList<String> students = StudentController.getStudentsByCourseId(course.getId());
+            ArrayList<String> students = studentService.getStudentsByCourseId(course.getId());
             ArrayList<ExamStudent> examStudents = new ArrayList<>();
 
             for(String id : students){
                 examStudents.add(new ExamStudent(id,lblExamId.getText(),-1));
             }
-            Exam exam = new Exam(lblExamId.getText(),course.getId(),module.getId(),String.valueOf(datePicker
+            lk.ijse.sakya.entity.custom.Exam exam = new lk.ijse.sakya.entity.custom.Exam(lblExamId.getText(),course.getId(),module.getId(),String.valueOf(datePicker
                     .getValue()),
                     examStudents);
 
-            boolean b = ExamController.addExam(exam);
+            boolean b = examService.addExam(exam);
             if(b){
                 new Alert(Alert.AlertType.INFORMATION,"Exam Create Success").show();
             }else{

@@ -1,6 +1,6 @@
 package lk.ijse.sakya.entity.custom;
 
-import lk.ijse.sakya.dto.ExamStudent;
+
 import lk.ijse.sakya.entity.SuperEntity;
 
 import java.util.ArrayList;

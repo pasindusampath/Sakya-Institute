@@ -15,6 +15,7 @@ public interface StudentDAO extends CrudDAO<Student,String> {
     ArrayList<String> getStudentsByCourseId(String courseId) throws SQLException, ClassNotFoundException;
     ArrayList<Student> getStudentsByCourseId(CourseTM course) throws SQLException, ClassNotFoundException;
     ObservableList<Student> searchStudent(String searchBy, String text) throws SQLException, ClassNotFoundException;
+    Student searchStudent(String id) throws SQLException, ClassNotFoundException;
 
 
 }

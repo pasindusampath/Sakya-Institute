@@ -14,4 +14,25 @@ public class SubjectServiceImpl implements SubjectService {
     public ObservableList<Subject> getSubjects(int grade) throws SQLException, ClassNotFoundException {
         return ob.getSubjects(grade);
     }
+
+    @Override
+    public boolean addSubject(Subject sub) throws SQLException, ClassNotFoundException {
+        return ob.add(sub);
+    }
+
+    @Override
+    public String getNewSubjectId() throws SQLException, ClassNotFoundException {
+        return ob.getNewSubjectId();
+    }
+
+    @Override
+    public boolean updateSubject(Subject subject) throws SQLException, ClassNotFoundException {
+        return ob.update(subject);
+    }
+
+    @Override
+    public boolean deleteSubject(String id) throws SQLException, ClassNotFoundException {
+        return ob.delete(id);
+    }
+
 }

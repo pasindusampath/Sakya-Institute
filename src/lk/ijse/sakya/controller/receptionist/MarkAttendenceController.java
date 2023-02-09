@@ -2,7 +2,6 @@ package lk.ijse.sakya.controller.receptionist;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXRadioButton;
-import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -14,26 +13,30 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import lk.ijse.sakya.controller.ServerController;
 import lk.ijse.sakya.db.DBConnection;
-import lk.ijse.sakya.dto.Attendence;
+
 import lk.ijse.sakya.dto.AttendenceTM;
 import lk.ijse.sakya.dto.LectureTM;
-import lk.ijse.sakya.interfaces.MobileQrPerformance;
-import lk.ijse.sakya.interfaces.QrPerformance;
-import lk.ijse.sakya.model.AttendenceController;
-import lk.ijse.sakya.model.LectureController;
+import lk.ijse.sakya.service.interfaces.MobileQrPerformance;
+
+
+import lk.ijse.sakya.service.custom.AttendenceService;
+import lk.ijse.sakya.service.custom.LectureService;
+import lk.ijse.sakya.service.custom.impl.AttendenceServiceImpl;
+import lk.ijse.sakya.service.custom.impl.LectureServiceImpl;
 import lk.ijse.sakya.thread.LoadQrUiTask;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+//Done
 
 public class MarkAttendenceController implements MobileQrPerformance {
     public JFXButton btnOK;
@@ -53,9 +56,15 @@ public class MarkAttendenceController implements MobileQrPerformance {
     public JFXButton btnQr;
     private AttendenceTM selectedItem;
     private LectureTM selectedLecture;
+    private AttendenceService attendenceService;
+
+
+    private LectureService lectureService;
 
     public void initialize(){
         setLectureTable();
+        lectureService = new LectureServiceImpl();
+        attendenceService = new AttendenceServiceImpl();
     }
 
     public void btnCreateLectureOnAction(ActionEvent actionEvent) {
@@ -78,7 +87,7 @@ public class MarkAttendenceController implements MobileQrPerformance {
         colTeacherName.setCellValueFactory(new PropertyValueFactory<LectureTM,String>("teacherName"));
 
         try {
-            tblLectureId.setItems(LectureController.getLecturesByDate(String.valueOf(LocalDate.now())));
+            tblLectureId.setItems(lectureService.getLecturesByDate(String.valueOf(LocalDate.now())));
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -94,7 +103,7 @@ public class MarkAttendenceController implements MobileQrPerformance {
 
 
         try {
-            tblAttendence.setItems(AttendenceController.getAllAttendenceByLectureId(selectedLecture.getId()));
+            tblAttendence.setItems(attendenceService.getAllAttendenceByLectureId(selectedLecture.getId()));
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -166,12 +175,12 @@ public class MarkAttendenceController implements MobileQrPerformance {
 
     public void btnSaveRecordOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         ObservableList<AttendenceTM> ob = tblAttendence.getItems();
-        ArrayList<Attendence> list = new ArrayList<>();
+        ArrayList<lk.ijse.sakya.entity.custom.Attendence> list = new ArrayList<>();
         for(AttendenceTM obj : ob){
-            list.add(new Attendence(selectedLecture.getId(),obj.getStudentId(), obj.getStatus()));
+            list.add(new lk.ijse.sakya.entity.custom.Attendence(selectedLecture.getId(),obj.getStudentId(), obj.getStatus()));
         }
        try {
-            boolean flag = AttendenceController.updateAttendence(list);
+            boolean flag = attendenceService.updateAttendence(list);
             if(flag){
                 new Alert(Alert.AlertType.INFORMATION,"Attendence Mark Compleate").show();
             }else{

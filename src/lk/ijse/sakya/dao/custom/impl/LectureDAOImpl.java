@@ -4,11 +4,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import lk.ijse.sakya.dao.custom.LectureDAO;
 import lk.ijse.sakya.dao.util.CrudUtil;
-import lk.ijse.sakya.db.DBConnection;
-import lk.ijse.sakya.dto.Attendence;
+
+
 import lk.ijse.sakya.dto.LectureTM;
+import lk.ijse.sakya.entity.custom.Attendence;
 import lk.ijse.sakya.entity.custom.Lecture;
-import lk.ijse.sakya.model.AttendenceController;
+
 
 
 import java.sql.ResultSet;
@@ -16,10 +17,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class LectureDAOImpl implements LectureDAO {
-    @Override
-    public boolean add(Lecture obj) throws SQLException, ClassNotFoundException {
-        throw new RuntimeException("No Implemented");
-    }
+
 
     @Override
     public boolean update(Lecture obj) throws SQLException, ClassNotFoundException {
@@ -60,29 +58,9 @@ public class LectureDAOImpl implements LectureDAO {
     }
 
     @Override
-    public boolean add(Lecture lecture, ArrayList<Attendence> ob) throws SQLException, ClassNotFoundException {
-        try {
-            DBConnection.getInstance().getConnection().setAutoCommit(false);
-            boolean flag = CrudUtil.execute("insert into lecture values(?,?,?)", lecture.getId(), lecture.getDate(),
-                    lecture.getcId());
-            if (flag) {
-                boolean flag2 = AttendenceController.addAttendence(ob);
-                if (flag2) {
-                    DBConnection.getInstance().getConnection().commit();
-                    return true;
-                }
-                DBConnection.getInstance().getConnection().rollback();
-            }
-            return false;
-        } catch (SQLException e) {
-            DBConnection.getInstance().getConnection().rollback();
-            throw e;
-        }catch(ClassNotFoundException e) {
-            DBConnection.getInstance().getConnection().rollback();
-            throw e;
-        } finally{
-            DBConnection.getInstance().getConnection().setAutoCommit(true);
-        }
+    public boolean add(Lecture lecture) throws SQLException, ClassNotFoundException {
+        return CrudUtil.execute("insert into lecture values(?,?,?)", lecture.getId(), lecture.getDate(),
+                lecture.getcId());
     }
 
     @Override
@@ -107,5 +85,19 @@ public class LectureDAOImpl implements LectureDAO {
             return true;
         }
         return false;
+    }
+
+    public boolean addAttendence(ArrayList<Attendence> ob) throws SQLException, ClassNotFoundException {
+        for (Attendence obj : ob) {
+            if (!addAttendence(obj)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean addAttendence(Attendence ob) throws SQLException, ClassNotFoundException {
+        return CrudUtil.execute("insert into attendence values(?,?,?)", ob.getlId(), ob.getsId(),
+                ob.getStatus());
     }
 }

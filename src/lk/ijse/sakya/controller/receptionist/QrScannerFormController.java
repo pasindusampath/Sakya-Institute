@@ -8,7 +8,7 @@ import javafx.scene.image.ImageView;
 //import org.opencv.core.Core;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Rectangle;
-import lk.ijse.sakya.interfaces.QrPerformance;
+import lk.ijse.sakya.service.interfaces.QrPerformance;
 import lk.ijse.sakya.util.WebCamView;
 import lk.ijse.sakya.thread.WebCamService;
 import org.opencv.core.Mat;
@@ -29,6 +29,19 @@ public class QrScannerFormController {
         //imgView.setVisible(false);
         Webcam cam =Webcam.getWebcams().get(0);
         service = new WebCamService(cam);
+        /*try {
+            cam.open();
+        }catch (Exception e){
+            System.out.println(e);
+            e.printStackTrace();
+        }*/
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
 
         WebCamView view = new WebCamView(service);
 

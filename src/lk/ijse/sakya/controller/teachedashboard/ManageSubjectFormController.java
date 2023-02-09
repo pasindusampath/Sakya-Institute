@@ -8,11 +8,16 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import lk.ijse.sakya.dto.Module;
-import lk.ijse.sakya.dto.Subject;
-import lk.ijse.sakya.interfaces.DashBoard;
-import lk.ijse.sakya.model.ModuleController;
-import lk.ijse.sakya.model.SubjectController;
+
+
+import lk.ijse.sakya.entity.custom.Module;
+import lk.ijse.sakya.entity.custom.Subject;
+
+
+import lk.ijse.sakya.service.custom.ModuleService;
+import lk.ijse.sakya.service.custom.SubjectService;
+import lk.ijse.sakya.service.custom.impl.ModuleServiceImpl;
+import lk.ijse.sakya.service.custom.impl.SubjectServiceImpl;
 
 import java.sql.SQLException;
 import java.util.Optional;
@@ -37,8 +42,13 @@ public class ManageSubjectFormController {
     private int selectedGrade;
     private Subject selectedSubject;
     private Module selectedModule;
+    private SubjectService subjectService;
+    private ModuleService moduleService;
+
 
     public void initialize() {
+        moduleService = new ModuleServiceImpl();
+        subjectService = new SubjectServiceImpl();
         String[] temp = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13"};
         ObservableList<String> gradeList = FXCollections.observableArrayList(temp);
         cbGrade.setItems(gradeList);
@@ -57,9 +67,9 @@ public class ManageSubjectFormController {
             return;
 
         }
-        Subject temp = new Subject(lblnewSubjectId.getText(), txtNewSubjectName.getText(), selectedGrade);
+        lk.ijse.sakya.entity.custom.Subject temp = new lk.ijse.sakya.entity.custom.Subject(lblnewSubjectId.getText(), txtNewSubjectName.getText(), selectedGrade);
         try {
-            boolean flag = SubjectController.addSubject(temp);
+            boolean flag = subjectService.addSubject(temp);
             if (flag) {
                 new Alert(Alert.AlertType.INFORMATION, "Subject Added Successful").show();
                 setLabels();
@@ -78,8 +88,8 @@ public class ManageSubjectFormController {
 
     public void setLabels() {
         try {
-            lblnewSubjectId.setText(SubjectController.getNewUserId());
-            lblNewModuleId.setText(ModuleController.getNewModuleId());
+            lblnewSubjectId.setText(subjectService.getNewSubjectId());
+            lblNewModuleId.setText(moduleService.getNewModuleId());
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR,"Get New ID Failed - Database Error").show();
         } catch (ClassNotFoundException e) {
@@ -92,7 +102,7 @@ public class ManageSubjectFormController {
         colSubjectName.setCellValueFactory(new PropertyValueFactory<Subject, String>("name"));
 
         try {
-            ObservableList<Subject> subjects = SubjectController.getSubjects(selectedGrade);
+            ObservableList<lk.ijse.sakya.entity.custom.Subject> subjects = subjectService.getSubjects(selectedGrade);
             tblSubjects.setItems(subjects);
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, "Getting Subject Details Error - Database Error").show();
@@ -108,7 +118,7 @@ public class ManageSubjectFormController {
         colModuleID.setCellValueFactory(new PropertyValueFactory<Module, String>("id"));
         colModuleName.setCellValueFactory(new PropertyValueFactory<Module, String>("name"));
         try {
-            ObservableList<Module> mList = ModuleController.getModuleOfSubect(selectedSubject.getId());
+            ObservableList<Module> mList = moduleService.getModuleOfSubect(selectedSubject.getId());
             tblModule.setItems(mList);
 
         } catch (SQLException e) {
@@ -134,7 +144,11 @@ public class ManageSubjectFormController {
         if (tblSubjects.getSelectionModel().getSelectedIndex() == -1) {
             return;
         }
-        selectedSubject = (Subject) tblSubjects.getSelectionModel().getSelectedItem();
+
+        lk.ijse.sakya.entity.custom.Subject s = (lk.ijse.sakya.entity.custom.Subject) tblSubjects.getSelectionModel().getSelectedItem();
+        selectedSubject = new Subject(s.getId(),s.getName(),s.getGrade());
+
+
         lblSelectedSubject.setText("Grade "+selectedGrade+" - "+selectedSubject.getName());
         txtSubjectName.setText(selectedSubject.getName());
         lblSubjectId.setText(selectedSubject.getId());
@@ -157,7 +171,8 @@ public class ManageSubjectFormController {
         }
         selectedSubject.setName(txtSubjectName.getText());
         try {
-            boolean flag = SubjectController.updateSubject(selectedSubject);
+            lk.ijse.sakya.entity.custom.Subject sub = new lk.ijse.sakya.entity.custom.Subject(selectedSubject.getId(),selectedSubject.getName(),selectedSubject.getGrade());
+            boolean flag = subjectService.updateSubject(sub);
             if (flag) {
                 tblSubjects.refresh();
                 tblSubjects.getSelectionModel().select(null);
@@ -188,7 +203,7 @@ public class ManageSubjectFormController {
         }
 
         try {
-            boolean flag = ModuleController.addModule(new Module(id, name, selectedSubject.getId()));
+            boolean flag = moduleService.addModule(new lk.ijse.sakya.entity.custom.Module(id, name, selectedSubject.getId()));
             if (flag) {
                 new Alert(Alert.AlertType.INFORMATION, "Module Saved Successful").show();
                 setModuleTable();
@@ -216,7 +231,9 @@ public class ManageSubjectFormController {
         selectedModule.setName(txtModuleName.getText());
         tblModule.refresh();
         try {
-            boolean flag = ModuleController.updateModule(selectedModule);
+            lk.ijse.sakya.entity.custom.Module module = new lk.ijse.sakya.entity.custom.Module(selectedModule.getId()
+            ,selectedModule.getName(),selectedModule.getSubId());
+            boolean flag = moduleService.updateModule(module);
             if(flag){
                 txtModuleName.clear();
                 lblModuleId.setText("");
@@ -245,7 +262,9 @@ public class ManageSubjectFormController {
             return;
         }
         try {
-            boolean flag = ModuleController.deleteModule(selectedModule);
+            lk.ijse.sakya.entity.custom.Module module = new lk.ijse.sakya.entity.custom.Module(selectedModule.getId(),selectedModule.getName()
+            ,selectedModule.getSubId());
+            boolean flag = moduleService.deleteModule(module);
             if(flag){
                 setModuleTable();
                 setLabels();
@@ -286,7 +305,7 @@ public class ManageSubjectFormController {
             return;
         }
         try {
-            boolean flag = SubjectController.deleteSubject(selectedSubject.getId());
+            boolean flag = subjectService.deleteSubject(selectedSubject.getId());
             if(flag){
                 lblSubjectId.setText("");
                 txtSubjectName.clear();

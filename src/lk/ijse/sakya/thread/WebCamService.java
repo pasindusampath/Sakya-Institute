@@ -77,7 +77,7 @@ public class WebCamService extends Service<Image> {
                 };
                 t1.start();
                 try {
-                    cam.open();
+                    //cam.open();
                     while (!isCancelled()) {
                         if (cam.isImageNew()) {
                             bimg = cam.getImage();

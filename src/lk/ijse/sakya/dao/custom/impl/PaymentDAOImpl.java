@@ -37,26 +37,12 @@ public class PaymentDAOImpl implements PaymentDAO {
 
     @Override
     public boolean add(ArrayList<Payment> list) throws SQLException, ClassNotFoundException {
-        try {
-            DBConnection.getInstance().getConnection().setAutoCommit(false);
-            for (Payment ob : list) {
-                if (!add(ob)) {
-                    DBConnection.getInstance().getConnection().rollback();
-                    return false;
-                }
-
+        for (Payment payment : list){
+            if(!add(payment)){
+                return false;
             }
-            DBConnection.getInstance().getConnection().commit();
-            return true;
-        }catch (SQLException e) {
-            DBConnection.getInstance().getConnection().rollback();
-            throw e;
-        }catch (ClassNotFoundException e){
-            DBConnection.getInstance().getConnection().rollback();
-            throw e;
-        }finally {
-            DBConnection.getInstance().getConnection().setAutoCommit(true);
         }
+        return true;
     }
 
     @Override
@@ -124,6 +110,7 @@ public class PaymentDAOImpl implements PaymentDAO {
                     rs.getInt(4),rs.getString(5),rs.getDouble(6)));
         }
         return list;
+
     }
 
     @Override

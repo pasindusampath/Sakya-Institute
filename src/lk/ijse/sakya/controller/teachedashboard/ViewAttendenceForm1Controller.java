@@ -4,9 +4,9 @@ import com.jfoenix.controls.JFXComboBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.control.Alert;
+
+
+
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -16,10 +16,13 @@ import javafx.util.StringConverter;
 import lk.ijse.sakya.dto.AttendenceTM;
 import lk.ijse.sakya.dto.CourseTM;
 import lk.ijse.sakya.dto.DateAttendenceTM;
-import lk.ijse.sakya.dto.User;
-import lk.ijse.sakya.interfaces.DashBoard;
-import lk.ijse.sakya.model.AttendenceController;
-import lk.ijse.sakya.model.CourseController;
+
+import lk.ijse.sakya.entity.custom.User;
+import lk.ijse.sakya.service.interfaces.DashBoard;
+import lk.ijse.sakya.service.custom.AttendenceService;
+import lk.ijse.sakya.service.custom.CourseService;
+import lk.ijse.sakya.service.custom.impl.AttendenceServiceImpl;
+import lk.ijse.sakya.service.custom.impl.CourseServiceImpl;
 import lk.ijse.sakya.util.DashBoardNavigation;
 
 import java.io.IOException;
@@ -38,8 +41,12 @@ public class ViewAttendenceForm1Controller implements DashBoard {
     private User user;
     private CourseTM course;
 
-    public void initialize(){
+    private CourseService courseService;
+    private AttendenceService attendenceService;
 
+    public void initialize(){
+        courseService = new CourseServiceImpl();
+        attendenceService = new AttendenceServiceImpl();
     }
 
     public void btnViewByStudentOnAction(ActionEvent actionEvent) throws IOException {
@@ -61,7 +68,7 @@ public class ViewAttendenceForm1Controller implements DashBoard {
             }
         });
         try {
-            ObservableList<CourseTM> courses = CourseController.getCoursesByTeacherId(userId);
+            ObservableList<CourseTM> courses = courseService.getCoursesByTeacherId(userId);
             for(CourseTM co : courses){
                 co.setCourseName(co.getYear()+" - "+co.getGrade()+" - "+co.getName());
             }
@@ -77,8 +84,8 @@ public class ViewAttendenceForm1Controller implements DashBoard {
         colDate.setCellValueFactory(new PropertyValueFactory<DateAttendenceTM,String>("date"));
         colCount.setCellValueFactory(new PropertyValueFactory<DateAttendenceTM,Integer>("count"));
         try {
-            tblDateCount.setItems(FXCollections.observableArrayList(AttendenceController.
-                    getDatesAndCountOfPresentByCourseId(course.getId())));
+            tblDateCount.setItems(FXCollections.observableArrayList(
+                    attendenceService.getDatesAndCountOfPresentByCourseId(course.getId())));
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -108,7 +115,7 @@ public class ViewAttendenceForm1Controller implements DashBoard {
         colStudentName.setCellValueFactory(new PropertyValueFactory<AttendenceTM,String>("name"));
         colStatus.setCellValueFactory(new PropertyValueFactory<AttendenceTM,String>("status"));
         try {
-            tblStudentDetail.setItems(AttendenceController.getAttendenceByCourseIdAndDate(cId,date));
+            tblStudentDetail.setItems(attendenceService.getAttendenceByCourseIdAndDate(cId,date));
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {

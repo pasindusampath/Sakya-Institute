@@ -1,4 +1,4 @@
-package lk.ijse.sakya.interfaces;
+package lk.ijse.sakya.service.interfaces;
 
 public interface QrPerformance {
      void qrIdRequestAction(String id);

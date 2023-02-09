@@ -117,4 +117,16 @@ public class StudentDAOImpl implements StudentDAO {
         }
         return list;
     }
+
+    @Override
+    public Student searchStudent(String id) throws SQLException, ClassNotFoundException {
+        ResultSet rs = CrudUtil.execute("SELECT * from student where id = ?", id);
+        Student temp = null;
+        if(rs.next()) {
+            temp = new Student(rs.getString(1), rs.getString(2), rs.getString(3),
+                    rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7),
+                    rs.getString(8));
+        }
+        return temp;
+    }
 }

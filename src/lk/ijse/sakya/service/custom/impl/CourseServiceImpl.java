@@ -61,4 +61,39 @@ public class CourseServiceImpl implements CourseService {
     public ObservableList<CourseTM> getCourseDetailForTables() throws SQLException, ClassNotFoundException {
         return ob.getCourseDetailForTables();
     }
+
+    @Override
+    public boolean updateCourse(Course course) throws SQLException, ClassNotFoundException {
+        return ob.update(new Course(course.getId(),course.getSubId(),course.getYear(),course.getTeacherId(),course.getYear()));
+    }
+
+    @Override
+    public boolean deleteCourse(String id) throws SQLException, ClassNotFoundException {
+        return ob.delete(id);
+    }
+
+    @Override
+    public ObservableList<CourseTM> searchCourses(String searchBy, String text) throws SQLException, ClassNotFoundException {
+        return ob.searchCourses(searchBy,text);
+    }
+
+    @Override
+    public ObservableList<CourseTM> getCourseDetails() throws SQLException, ClassNotFoundException {
+        return ob.getCourseDetails();
+    }
+
+    @Override
+    public ObservableList<CourseTM> getCourseDetails(String searchBy, String text) throws SQLException, ClassNotFoundException {
+        return ob.getCourseDetails(searchBy,text);
+    }
+
+    @Override
+    public ObservableList<CourseTM> getCourseDetailsByStudentId(String stId) throws SQLException, ClassNotFoundException {
+        return ob.getCourseDetailsByStudentId(stId);
+    }
+
+    @Override
+    public ObservableList<CourseTM> getCoursesByTeacherId(String teacherId) throws SQLException, ClassNotFoundException {
+        return ob.getCoursesByTeacherId(teacherId);
+    }
 }

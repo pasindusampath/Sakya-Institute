@@ -9,14 +9,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
-import lk.ijse.sakya.dto.Course;
+
 import lk.ijse.sakya.dto.CourseDTO;
 
-import lk.ijse.sakya.dto.User;
+
 import lk.ijse.sakya.entity.custom.Subject;
-import lk.ijse.sakya.model.CourseController;
-import lk.ijse.sakya.model.SubjectController;
-import lk.ijse.sakya.model.UserController;
+import lk.ijse.sakya.entity.custom.User;
+
+
+import lk.ijse.sakya.service.ServiceFactory;
+import lk.ijse.sakya.service.ServiceType;
 import lk.ijse.sakya.service.custom.CourseService;
 import lk.ijse.sakya.service.custom.SubjectService;
 import lk.ijse.sakya.service.custom.UserService;
@@ -28,6 +30,8 @@ import lk.ijse.sakya.thread.SendMail;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Optional;
+
+//Done
 
 public class AddClassFormController {
     SubjectService subjectService;
@@ -46,9 +50,9 @@ public class AddClassFormController {
     public JFXTextField txtMonthlyFee;
 
     public void initialize() {
-        subjectService=new SubjectServiceImpl();
-        courseService = new CourseServiceImpl();
-        userService=new UserServiceImpl();
+        subjectService= ServiceFactory.getInstance().getService(ServiceType.SUBJECT);
+        courseService = ServiceFactory.getInstance().getService(ServiceType.COURSE);
+        userService=ServiceFactory.getInstance().getService(ServiceType.USER);
         isAdded = false;
         String[] temp = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13"};
         cbGrade.setItems(FXCollections.observableArrayList(temp));
@@ -75,7 +79,7 @@ public class AddClassFormController {
 
     public void setNewCourseIdLabel() {
         try {
-            lblCourseId.setText(CourseController.getNewCourseId());
+            lblCourseId.setText(courseService.getNewCourseId());
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, "Getting New Course Id Error - Database Error").show();
             ((Stage) context.getScene().getWindow()).close();

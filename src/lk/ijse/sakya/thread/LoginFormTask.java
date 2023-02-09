@@ -8,9 +8,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.paint.Paint;
 
-import lk.ijse.sakya.dto.User;
-import lk.ijse.sakya.interfaces.DashBoard;
-import lk.ijse.sakya.model.UserController;
+
+import lk.ijse.sakya.entity.custom.User;
+import lk.ijse.sakya.service.interfaces.DashBoard;
+import lk.ijse.sakya.service.custom.UserService;
+import lk.ijse.sakya.service.custom.impl.UserServiceImpl;
 
 
 import java.io.IOException;
@@ -19,9 +21,12 @@ import java.sql.SQLException;
 public class LoginFormTask extends Task<Parent> {
     JFXTextField txtUserName;
     JFXPasswordField txtPassword;
+
+    UserService userService;
     public LoginFormTask(JFXTextField txtUserName, JFXPasswordField txtPassword) {
         this.txtUserName = txtUserName;
         this.txtPassword = txtPassword;
+        userService = new UserServiceImpl();
     }
 
 
@@ -36,7 +41,7 @@ public class LoginFormTask extends Task<Parent> {
         //System.out.println(gmail);
 
         try {
-            User user = UserController.searchUserByGmail(gmail);
+            User user = userService.searchUserByGmail(gmail);
             //System.out.println(user.getName());
             updateProgress(30, 100);
             if (user.getPassword().equals(password)) {

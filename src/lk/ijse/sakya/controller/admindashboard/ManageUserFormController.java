@@ -18,8 +18,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Paint;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import lk.ijse.sakya.dto.User;
-import lk.ijse.sakya.model.UserController;
+import lk.ijse.sakya.entity.custom.User;
+
+import lk.ijse.sakya.service.custom.UserService;
+import lk.ijse.sakya.service.custom.impl.UserServiceImpl;
 import lk.ijse.sakya.thread.SendMail;
 
 import javax.imageio.ImageIO;
@@ -34,8 +36,9 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+//Done
 public class ManageUserFormController {
+    UserService userService;
     public JFXTextField txtSearch;
     public JFXButton btnSearch;
     public JFXTextField txtName;
@@ -58,9 +61,10 @@ public class ManageUserFormController {
     public RadioButton rdName;
     public RadioButton rdContact;
     public TableColumn colType;
-    private User selectedUser;
+    private lk.ijse.sakya.entity.custom.User selectedUser;
 
     public void initialize(){
+        userService = new UserServiceImpl();
         String[] type = {"ADMIN","TEACHER","RECEPTIONIST"};
         ObservableList<String> list = FXCollections.observableArrayList(type);
         cbType.setItems(list);
@@ -75,7 +79,7 @@ public class ManageUserFormController {
         colContact.setCellValueFactory(new PropertyValueFactory<User,String>("contact"));
         colType.setCellValueFactory(new PropertyValueFactory<User,String>("type"));
         try {
-            ObservableList<User> users = UserController.getAllUsers();
+            ObservableList<lk.ijse.sakya.entity.custom.User> users = userService.getAllUsers();
             tableUsers.setItems(users);
 
         } catch (SQLException e) {
@@ -99,6 +103,9 @@ public class ManageUserFormController {
             User temp = new User(selectedUser.getId(),name,type,gmail,contact,selectedUser.getPassword()
             ,date,address);
 
+            lk.ijse.sakya.entity.custom.User user = new lk.ijse.sakya.entity.custom.User(selectedUser.getId(),name,type,gmail,contact,selectedUser.getPassword()
+                    ,date,address);
+
             if(!gmail.equals(selectedUser.getGmail())){
                 Stage stage = new Stage();
                 URL resource = getClass().getResource("../../view/admindashboard/ValidateGmailForm.fxml");
@@ -120,12 +127,12 @@ public class ManageUserFormController {
                     new Alert(Alert.AlertType.ERROR,"Profile Update Failed Try Again").show();
                     return;
                 }else{
-                    sendUserDetailsMail(temp.getInstance(),"Profile Updated Successfull");
+                    userService.sendUserDetailsMail(prograss,temp.getInstance(),"Profile Updated Successfull");
                 }
             }
             boolean flag = false;
             try {
-                flag=UserController.updateUser(temp);
+                flag=userService.updateUser(user);
             } catch (SQLException e) {
                 new Alert(Alert.AlertType.ERROR,"User Updating Error - Database Error").show();
             } catch (ClassNotFoundException e) {
@@ -156,8 +163,11 @@ public class ManageUserFormController {
         if(text.equalsIgnoreCase("no")){
             return;
         }
+        lk.ijse.sakya.entity.custom.User user = new lk.ijse.sakya.entity.custom.User(selectedUser.getId(),
+                selectedUser.getName(), selectedUser.getType(),selectedUser.getGmail()
+                ,selectedUser.getContact(),selectedUser.getPassword(),selectedUser.getDob(),selectedUser.getAddress());
         try {
-            boolean flag = UserController.deleteUser(selectedUser);
+            boolean flag = userService.deleteUser(user);
             if(flag){
                 new Alert(Alert.AlertType.INFORMATION,"User Deleted Successful").show();
                 setTableUsers();
@@ -191,7 +201,7 @@ public class ManageUserFormController {
         if(validation()){
             try {
                 Stage stage = new Stage();
-                URL resource = getClass().getResource("../../view/admindashboard/ValidateGmailForm.fxml");
+                URL resource = getClass().getResource("/admindashboard/ValidateGmailForm.fxml");
                 FXMLLoader f1=new FXMLLoader(resource);
                 Parent load = f1.load();
                 ValidateGmailFormController controller = f1.getController();
@@ -204,7 +214,7 @@ public class ManageUserFormController {
                     new Alert(Alert.AlertType.ERROR,"User Adding Failed Try Again").show();
                     return;
                 }
-                String newUserId = UserController.getNewUserId();
+                String newUserId = userService.getNewUserId();
                 String name = txtName.getText();
                 String gmail=txtGmail.getText();
                 String contact=txtContact.getText();
@@ -217,8 +227,8 @@ public class ManageUserFormController {
                 }while(!(rand>10000000));
                 User u1 = new User(newUserId,name,cbType.getSelectionModel().getSelectedItem().toString()
                 ,gmail,contact,String.valueOf(rand),date,address);
-                sendUserDetailsMail(u1,"Welcome To Sakya Smart Class System");
-                boolean b = UserController.addUser(u1);
+                userService.sendUserDetailsMail(prograss,u1,"Welcome To Sakya Smart Class System");
+                boolean b = userService.addUser(u1);
                 if(b){
                     new Alert(Alert.AlertType.INFORMATION,"User Added Succesful").show();
                     setTableUsers();
@@ -285,7 +295,7 @@ public class ManageUserFormController {
 
     public void searchUser(String searchBy){
         try {
-            tableUsers.setItems(UserController.searchUser(searchBy,txtSearch.getText()));
+            tableUsers.setItems(userService.searchUser(searchBy,txtSearch.getText()));
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -336,13 +346,15 @@ public class ManageUserFormController {
         }
     }
 
-    public void sendUserDetailsMail(User user,String subject) throws Exception {
+    /*public void sendUserDetailsMail(JFXProgressBar prograss,User user,String subject) throws Exception {
         StringBuilder sb = new StringBuilder();
         sb.append("Use This Username and Password to Login to Sakya Smart Classroom Application");
         sb.append("");
         sb.append("                    Username : "+user.getGmail()+"");
         sb.append("                    Password : "+user.getPassword()+"");
-        sb.append("");
+        sb.append("                                                                              ");
+        sb.append("                                                                              ");
+        sb.append("                                                                              ");
         File file = generateQRCodeImage(user.getId());
         SendMail os = new SendMail(user.getGmail(),sb.toString(),subject,file);
         Thread ob = new Thread(os);
@@ -378,10 +390,10 @@ public class ManageUserFormController {
         ImageIO.write(MatrixToImageWriter.toBufferedImage(bitMatrix), "jpg", outputfile);
         //sendMail(outputfile);
         return outputfile;
-    }
+    }*/
 
     public void tableOnMouseClickAction(MouseEvent mouseEvent) {
-        selectedUser= (User) tableUsers.getSelectionModel().getSelectedItem();
+        selectedUser= (lk.ijse.sakya.entity.custom.User) tableUsers.getSelectionModel().getSelectedItem();
         if(selectedUser==null){
             return;
         }

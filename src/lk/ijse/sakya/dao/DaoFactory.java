@@ -1,5 +1,6 @@
 package lk.ijse.sakya.dao;
 
+import lk.ijse.sakya.dao.custom.ExamStudentDAO;
 import lk.ijse.sakya.dao.custom.impl.*;
 
 public class DaoFactory {
@@ -26,7 +27,7 @@ public class DaoFactory {
             case Student:return (T)new StudentDAOImpl();
             case Subject:return (T)new SubjectDAOImpl();
             case Attendance:return (T)new AttendenceDAOImpl();
-            case ExamStudent:return (T)new ExamStudentImpl();
+            case ExamStudent:return (T)new ExamStudentDAOImpl();
             case RegistrationFee:return (T)new RegistrationFeeDAOImpl();
         }
         return null;

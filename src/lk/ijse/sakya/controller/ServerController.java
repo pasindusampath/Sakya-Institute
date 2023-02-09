@@ -1,11 +1,7 @@
 package lk.ijse.sakya.controller;
 
-import javafx.event.EventHandler;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
-import javafx.stage.Window;
-import javafx.stage.WindowEvent;
-import lk.ijse.sakya.interfaces.MobileQrPerformance;
+import lk.ijse.sakya.service.interfaces.MobileQrPerformance;
 import lk.ijse.sakya.util.Server;
 
 import java.io.IOException;

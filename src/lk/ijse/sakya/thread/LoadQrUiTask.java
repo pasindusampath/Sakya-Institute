@@ -4,7 +4,6 @@ package lk.ijse.sakya.thread;
 import javafx.concurrent.Task;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
@@ -12,11 +11,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 import lk.ijse.sakya.controller.receptionist.QrScannerFormController;
-import lk.ijse.sakya.interfaces.QrPerformance;
-
-
-
-import java.io.IOException;
+import lk.ijse.sakya.service.interfaces.QrPerformance;
 
 public class LoadQrUiTask extends Task<Scene> {
     QrPerformance con;
